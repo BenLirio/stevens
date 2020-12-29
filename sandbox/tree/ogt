@@ -1,0 +1,106 @@
+package tree
+
+import (
+	"text/template"
+	"io"
+	"os/exec"
+)
+
+type Node struct {
+	id string
+	left *Node
+	right *Node
+}
+func (n *Node) Id() string {
+	return n.id
+}
+func (n *Node) Left() *Node {
+	return n.left
+}
+func (n *Node) Right() *Node {
+	return n.right
+}
+
+type TreeNode interface {
+	Show(io.Writer)
+	Id() string
+	Left() *TreeNode
+	Right() TreeNode
+}
+
+var TreeTemplate string = `
+digraph TREE {
+	{{range .Edges}}
+		{{.From}} -> {{.To}};
+	{{end}}
+}
+`
+func init() {
+	tmpl = template.Must(template.New("dot").Parse(TreeTemplate))
+}
+
+type Edge struct {
+	From string
+	To string
+}
+
+type Graph struct {
+	Edges []Edge
+}
+
+func (n *Node) edges() []Edge {
+	edges := []Edge{}
+	que := []*Node{n}
+	for len(que) != 0 {
+		cur := que[0]
+		que = que[1:]
+		if cur.Left() != nil {
+			edges = append(edges, Edge{From: cur.Id(), To: cur.Left().Id()})
+			que = append(que, cur.Left())
+		}
+		if cur.Right() != nil {
+			edges = append(edges, Edge{From: cur.Id(), To: cur.Right().Id()})
+			que = append(que, cur.Right())
+		}
+	}
+	return edges
+}
+
+var tmpl *template.Template
+
+func (n *Node) writeTemplate(wr io.Writer) {
+	edges := n.edges()
+	graph := Graph{ Edges: edges }
+	err := tmpl.Execute(wr, graph)
+	if err != nil { panic(err) }
+}
+
+func Show(n TreeNode, w io.Writer) {
+	templateReader, templateWriter := io.Pipe()
+	pngReader, pngWriter := io.Pipe()
+	go func() {
+		n.writeTemplate(templateWriter)
+		templateWriter.Close()
+	}()
+	go func() {
+		dot(templateReader, pngWriter)
+		templateReader.Close()
+		pngWriter.Close()
+	}()
+	imgcat(pngReader, w)
+	pngReader.Close()
+}
+
+func dot(r io.Reader, w io.Writer) {
+	cmd := exec.Command("dot", "-Tpng")
+	cmd.Stdin = r
+	cmd.Stdout = w
+	cmd.Run()
+}
+
+func imgcat(r io.Reader, w io.Writer) {
+	cmd := exec.Command("imgcat")
+	cmd.Stdin = r
+	cmd.Stdout = w
+	cmd.Run()
+}

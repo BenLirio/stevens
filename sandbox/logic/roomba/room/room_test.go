@@ -6,21 +6,21 @@ import (
 
 func TestVector(t *testing.T) {
 	vector := Vector{1,2}
-	if vector.x != 1 {
-		t.Errorf("Expected vector x to be %d, got %d\n", 1, vector.x)
+	if vector.X != 1 {
+		t.Errorf("Expected vector x to be %d, got %d\n", 1, vector.X)
 	}
-	if vector.y != 2 {
-		t.Errorf("Expected vector x to be %d, got %d\n", 2, vector.y)
+	if vector.Y != 2 {
+		t.Errorf("Expected vector x to be %d, got %d\n", 2, vector.Y)
 	}
 }
 
 func TestNewRoom(t *testing.T) {
-	room := newRoom(4, 5, 42)
-	if room.size.x != 4 {
-		t.Errorf("Expected room x size to be %d, got %d\n", 4, room.size.x)
+	room := NewRoom(4, 5, 42)
+	if room.size.X != 4 {
+		t.Errorf("Expected room x size to be %d, got %d\n", 4, room.size.X)
 	}
-	if room.size.y != 5 {
-		t.Errorf("Expected room x size to be %d, got %d\n", 5, room.size.y)
+	if room.size.Y != 5 {
+		t.Errorf("Expected room x size to be %d, got %d\n", 5, room.size.Y)
 	}
 	if len(room.walls) != 4 {
 		t.Errorf("Expected len(room.walls) to be %d, got %d\n", 4, len(room.walls))
@@ -28,22 +28,44 @@ func TestNewRoom(t *testing.T) {
 	if len(room.walls[0]) != 5 {
 		t.Errorf("Expected len(room.walls) to be %d, got %d\n", 5, len(room.walls[0]))
 	}
-	if room.walls[room.roomba.pos.x][room.roomba.pos.y] == true {
+	if room.walls[room.roomba.pos.X][room.roomba.pos.Y] == true {
 		t.Errorf("Roomba started in a wall at pos %v\n", room.roomba.pos)
 	}
 }
 
+func TestNewRoomSize(t *testing.T) {
+	roomSizes := []struct{
+		x int
+		y int
+		seed uint64
+	}{
+		{10, 3, 22},
+		{4, 12, 99},
+		{1, 1, 48},
+		{0, 0, 0},
+		{0, 8, 1},
+		{8, 0, 5},
+	}
+	for _, roomSize := range roomSizes {
+		room := NewRoom(roomSize.x, roomSize.y, roomSize.seed)
+		if room.size.x != roomSize.x {
+			t.Errorf("Expected Room's x size to be %d, got %d\n", roomSize.x, room.size.X)
+		}
+		if room.size.y != roomSize.y {
+			t.Errorf("Expected Room's y size to be %d, got %d\n", roomSize.x, room.size.Y)
+		}
+	}
+}
+
 func TestRoomTraversable(t *testing.T) {
-	room := newRoom(5, 10, 42)
-	if room.walls[room.roomba.pos.x][room.roomba.pos.y] == true {
-		t.Errorf("Roomba started in a wall at pos %v\n", room.roomba.pos)
-	}
-	var visited [5][10]bool
-	if len(visited) != len(room.walls) {
-		t.Errorf("Expected Visited to be len %d, got %d\n", len(room.walls), len(visited))
-	}
-	if len(visited[0]) != len(room.walls[0]) {
-		t.Errorf("Expected Visited[0] to be len %d, got %d\n", len(room.walls[0]), len(visited[0]))
+	roomSize := NewVector(5, 10)
+	room := NewRoom(roomSize.X, roomSize.Y, 42)
+	// Check does not start in wall
+	// Check size of room
+	room.Show()
+	visited := make([][]bool, roomSize.X)
+	for i := 0; i < roomSize.X; i++ {
+		visited[i] = make([]bool, roomSize.Y)
 	}
 	var traverse func(int, int)
 	traverse = func(x int, y int) {
@@ -54,6 +76,9 @@ func TestRoomTraversable(t *testing.T) {
 			for j := -1; j <= 1; j++ {
 				xoff := x+i
 				yoff := y+j
+				if xoff != 0 && yoff != 0 {
+					continue
+				}
 				if xoff >= len(visited) || xoff < 0 { continue }
 				if yoff >= len(visited[0]) || yoff < 0 { continue }
 				if visited[xoff][yoff] == true { continue }
@@ -62,7 +87,7 @@ func TestRoomTraversable(t *testing.T) {
 			}
 		}
 	}
-	traverse(room.roomba.pos.x, room.roomba.pos.y)
+	traverse(room.roomba.pos.X, room.roomba.pos.Y)
 	unreachable := [][2]int{}
 	for i := 0; i < len(visited); i++ {
 		for j := 0; j < len(visited[0]); j++ {
@@ -72,7 +97,7 @@ func TestRoomTraversable(t *testing.T) {
 		}
 	}
 	if len(unreachable) != 0 {
-		t.Errorf("Can not get to %d of %d squares\n", len(unreachable), 25*30)
+		t.Errorf("Can not get to %d of %d squares\n", len(unreachable), 5 * 10)
 	}
 	wallCount := 0
 	for i := 0; i < len(room.walls); i++ {
@@ -87,7 +112,7 @@ func TestRoomTraversable(t *testing.T) {
 }
 
 func TestIsClean(t *testing.T) {
-	room := newRoom(10, 11, 42)
+	room := NewRoom(10, 11, 42)
 	for i := 0; i < len(room.walls); i++ {
 		for j := 0; j < len(room.walls[0]); j++ {
 			if room.walls[i][j] == false && room.clean[i][j] == true {
@@ -112,7 +137,7 @@ func TestIsClean(t *testing.T) {
 }
 
 func TestRoombaClean(t *testing.T) {
-	room := newRoom(10, 10, 42)
+	room := NewRoom(10, 10, 42)
 	numClean := 0
 	for i := 0; i < len(room.walls); i++ {
 		for j := 0; j < len(room.walls[0]); j++ {
@@ -148,7 +173,7 @@ func TestRoombaClean(t *testing.T) {
 }
 
 func TestRotation(t *testing.T) {
-	room := newRoom(8, 9, 42)
+	room := NewRoom(8, 9, 42)
 	if room.roomba.direction != UP {
 		t.Errorf("Roomba should start going UP\n")
 	}
@@ -187,28 +212,33 @@ func TestRotation(t *testing.T) {
 }
 
 func TestMove(t *testing.T) {
-	room := newRoom(6, 8, 42)
-	room.roomba.pos.x = 0
-	room.roomba.pos.y = 0
+	room := NewRoom(6, 8, 42)
+	room.roomba.pos.X = 0
+	room.roomba.pos.Y = 0
 	room.roomba.direction = DOWN
 	room.walls[0][0] = false
 	room.walls[1][0] = false
 	room.walls[2][0] = true
-	if room.roomba.pos.x != 0 || room.roomba.pos.y != 0 {
+	if room.roomba.pos.X != 0 || room.roomba.pos.Y != 0 {
 		t.Errorf("Should have put roomba in (0, 0)\n")
 	}
 	ok := room.Forward()
 	if ok == false {
 		t.Errorf("Forward() should return true when there is no wall\n")
 	}
-	if room.roomba.pos.x != 1 || room.roomba.pos.y != 0 {
+	if room.roomba.pos.X != 1 || room.roomba.pos.Y != 0 {
 		t.Errorf("Roomba should be a pos (1, 0), got %v\n", room.roomba.pos)
 	}
 	ok = room.Forward()
 	if ok == true {
 		t.Errorf("Forward() should return false when there is a wall\n")
 	}
-	if room.roomba.pos.x != 1 || room.roomba.pos.y != 0 {
+	if room.roomba.pos.X != 1 || room.roomba.pos.Y != 0 {
 		t.Errorf("Roomba should be a pos (1, 0), got %v\n", room.roomba.pos)
 	}
+}
+
+func TestShow(t *testing.T) {
+	room := NewRoom(10, 10, 42)
+	room.Show()
 }
