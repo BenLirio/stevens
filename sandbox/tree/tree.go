@@ -62,6 +62,7 @@ func writeTemplateFromBinaryTreeNode(wr io.Writer, n BinaryTreeNode) {
 }
 
 func Show(n BinaryTreeNode, w io.Writer) {
+	if n == nil { return }
 	templateReader, templateWriter := io.Pipe()
 	pngReader, pngWriter := io.Pipe()
 	go func() {
