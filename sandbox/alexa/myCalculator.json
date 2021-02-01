@@ -1,0 +1,148 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "my calculator",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "slots": [],
+                    "samples": [
+                        "hello",
+                        "how are you",
+                        "say hi world",
+                        "say hi",
+                        "hi",
+                        "say hello world",
+                        "say hello"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AddIntent",
+                    "slots": [
+                        {
+                            "name": "firstNumber",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "secondNumber",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "add two numbers",
+                        "preform addition",
+                        "add {firstNumber} and {secondNumber}",
+                        "add {firstNumber} plus {secondNumber}"
+                    ]
+                },
+                {
+                    "name": "SubtractIntent",
+                    "slots": [
+                        {
+                            "name": "firstNumber",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "secondNumber",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "preform subtraction",
+                        "subtract two numbers",
+                        "{firstNumber} minus {secondNumber}",
+                        "{firstNumber} take away {secondNumber}",
+                        "subtract {firstNumber} from {secondNumber}"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "AddIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "firstNumber",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.551133029781.31549803129"
+                            }
+                        },
+                        {
+                            "name": "secondNumber",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": ""
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "SubtractIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "firstNumber",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": ""
+                            }
+                        },
+                        {
+                            "name": "secondNumber",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.551133029781.31549803129",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the first number?"
+                    }
+                ]
+            }
+        ]
+    }
+}
