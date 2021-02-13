@@ -1,0 +1,87 @@
+Problem 1
+
+n = AND
+u = OR
+
+a) A = {SSF,SFS,SFF}
+b) B = {SSS,SSF,SFS,FSS}
+c) C = {SSS,SSF,SFS}
+d) C' = {SFF,FSS,FSF,FFS,FFF}
+   A u C = {SSS,SSF,SFS,SFF}
+   A n C = {SSF,SFS}
+   B u C = {SSS,SSF,SFS,FSS}
+   B n C = {SSS,SSF,SFS}
+
+Problem 2
+
+a) S = {3,4,5,13,14,15,23,24,25,123,124,125,213,214,215}
+b) A = {3,4,5}
+c) B = {5,15,25,125,215}
+d) C = {3,4,5,23,24,25}
+
+Problem 3
+
+a) 7%
+b) 15% + 10% + 5% = 30%
+c) 100% - (18% + 25%) = 57%
+
+Problem 4
+P(A1) = .22
+P(A2) = .25
+P(A3) = .28
+P(A1 n A2) = .11
+P(A1 n A3) = .05
+P(A2 n A3) = .07
+P(A1 n A2 n A3) = .01
+
+a) A1 u A2 = P(A1) + P(A2) - P(A1 n A2) =
+   .22 + .25 - .11 =
+   .46
+b) A1' n A2' = (A1 u A2)' =
+   1 - (A1 u A2) =
+   1 - .46	// as defined in 4.a
+   .54
+c) A1 u A2 u A3 = P(A1) + P(A2) + P(A3) - P(A1 n A2) - P(A1 n A3) - P(A2 n A3) + P(A1 n A2 n A3) =
+   .22 + .25 + .28 - .11 - .05 - .07 + .01 =
+   .53
+d) A1' n A2' n A2' = (A1 u A2 u A3)' =
+   1 - .53	// as defined in 4.c
+e) A1' n A2' n A3 = P(A3) - P(A2 n A3) - P(A1 n A3) + P(A1 n A2 n A3) =
+   .28 - .05 - .07 + .01 =
+   .17
+f) (A1' n A2') u A3 = (A1 u A2)' u A3
+   P(A1' u A2') + P(A3) - P(A1' n A2' n A3) = 
+   .54 + .28 - .17	// .54 defined in 4.b and .17 is defined in 4.e
+   .65
+
+Problem 5
+key = 	D => Day
+	S => Swing
+	N => Night
+	US => Unsafe Conditions
+	UR => Unrelated to Conditions	
+a) Simple Events = {DUS,DUR,SUS,SUR,NUS,NUR}
+b) P(US) = P(DUS) + P(SUS) + P(NUS) =	// No need for calculating P(DUS n SUS) becuase these events are simple
+   10% + 8% + 5% =
+   23%
+c) P(D') = 100% - P(D) =
+   100% - P(DUC) + P(DUR)	// P(DUC) and P(DUR) are simple events
+   100% - 10% - 35% =
+   55%
+
+Problem 6
+
+a) 3A's 3B's 3C's =
+   9! / (3! * 3! * 3!)
+// 9! comes from the number of total possible combinations given A1, A2, etc.
+// dividing by 3! * 3! * 3! comes from removing the Permutations A1, A2, etc.
+
+b) With the assumption that all of the outcomes listed in 6.a are equally likely:
+   Let us first count the number of ways all the molecules can be arranged so that
+   the ones of the same letter are adjacent
+   This is equivalent the the problem of permuting A, B, C, and D by mapping values aaa => A and bbb => B, etc
+   where a is a single molecule and A is a group of 3 a's
+   4! the result, so if we now take this answer and divide it by the total number of
+   ways to arrange the molocules we should get our answer.
+   which computes to be 4!/(9! / (3! * 3! * 3!) as shown above
+
