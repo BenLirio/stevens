@@ -1,0 +1,19 @@
+# File Test operators
+-b special block file.
+-c character file.
+-d directory
+-e regardless (node, directory, socket, etc.).
+-f regular file
+-G Same group as user
+-h symbolic link
+-g sgid flag
+-k sticky bit flag set
+-L symbolic link
+-O Owned by user running command
+-p pip
+-r readable
+-S socket
+-s nonzero size
+-u suid (Set user id) is set
+-w writable
+-x Executable

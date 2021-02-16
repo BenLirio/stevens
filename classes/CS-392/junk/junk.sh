@@ -1,63 +1,130 @@
 #!/bin/bash
 
-let HELP_FLAG=2**0
-let LIST_FLAG=2**1
-let PURGE_FLAG=2**2
-JUNK_FOLDER="./.junk"
+readonly STREAM_TO_NULL=/dev/null
+readonly FALSE=0
+readonly TRUE=1
+readonly let HELP_FLAG=$(( 2#0001 ))
+readonly let LIST_FLAG=$(( 2#0010))
+readonly let PURGE_FLAG=$(( 2#0100 ))
+readonly let INCORRECT_FLAG=$(( 2#1000 ))
+readonly JUNK_FOLDER="./.junk"
 
 usage ()
 {
-# ---- begin here document ---- #
 	cat << EOF
-Usage: junk.sh [-hlp] [list of files]
+Usage: $(basename $0) [-hlp] [list of files]
 	-h: Display help
 	-l: List junked files.
 	-p: Purge all files.
 	[list of files] with no other arguments to junk those files.
 EOF
-# ---- end here document ---- #
 	exit 0
 }
 
-flag=0
+incorrect_option=""
 
-check_num_flags ()
+parse_flags ()
 {
-	if [[ ! flag -eq 0 ]]
+	local flag=$(( 2#0 ))
+
+	while getopts ":h :l :p" opt; do
+		case ${opt} in
+			h) flag=$(( flag | HELP_FLAG ))
+				;;
+			l) flag=$(( flag | LIST_FLAG ))
+				;;
+			p) flag=$(( flag | PURGE_FLAG ))
+				;;
+			*) incorrect_option="${1}"
+			   flag=$(( flag | INCORRECT_FLAG ))
+				;;
+		esac
+	done
+	return $flag
+}
+
+setup_junk_folder ()
+{
+	if [[ ! -e "${JUNK_FOLDER}" ]]
 	then
-		echo "Error: Too many options enabled." >&2
-		usage
+		mkdir "${JUNK_FOLDER}"
+	fi
+	if [[ ! -d "${JUNK_FOLDER}" ]]
+	then
+		echo "${JUNK_FOLDER} exists, but is not a directory"
+		exit 1
 	fi
 }
 
-while getopts ":h :l :p" opt; do
-	case ${opt} in
-		h) check_num_flags
-		   flag=$((flag + HELP_FLAG))
-			;;
-		l) check_num_flags
-		   flag=$((flag + LIST_FLAG))
-			;;
-		p) check_num_flags
-		   flag=$((flag + PURGE_FLAG))
-			;;
-		*) echo "Error: Unrecognized option $1" >&2
-		   usage
-			;;
-	esac
-done
+junk_files ()
+{
+	for filename in $*
+	do
+		if [[ -e $filename ]]
+		then
+			mv ${filename} ${JUNK_FOLDER}
+		else
+			echo "Warning: '${filename}' not found"
+		fi
+	done
+}
 
-if [[ 0 -eq $flag ]]
-then
+list_junk ()
+{
+	ls -lA "${JUNK_FOLDER}"
+
+}
+
+purge_junk ()
+{
+	rm -rf "${JUNK_FOLDER}"/* 
+	# Not the best practice but it functions properly
+	rm -rf "${JUNK_FOLDER}"/.* 2>${STREAM_TO_NULL}
+}
+
+log_incorrect_option ()
+{
+	echo "Error: Incorrect option '${incorrect_option}'"
 	usage
-fi
+}
 
-if [[ -d "${JUNK_FOLDER}" ]]
+too_many_options ()
+{
+	echo "Error: Too many options enabled."
+	usage
+}
+
+parse_flags $*; flag=$?
+
+shift $(( OPTIND - 1))
+[[ $# -eq 0 ]] && has_args=$FALSE || has_args=$TRUE
+[[ $flag -eq 0 ]] && has_flags=$FALS || has_flags=$TRUE
+
+if [[ has_args -eq has_flags ]]
 then
-	echo "JUNK FOLDER FOUND"
-else
-	mkdir "${JUNK_FOLDER}"
-	# TODO $JUNK_FOLDER is not a folder but exists, this will create an error
+	if [[ has_args -eq $FALSE ]]
+	then
+		usage
+	else
+		too_many_options
+	fi
 fi
 
-echo $flag
+setup_junk_folder
+
+case "${flag}" in
+	0) junk_files $*
+		;;
+	1) usage
+		;;
+	2) list_junk
+		;;
+	4) purge_junk
+		;;
+	8) log_incorrect_option
+		;;
+	*) too_many_options
+		;;
+esac
+
+exit 0
