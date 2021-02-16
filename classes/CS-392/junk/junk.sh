@@ -1,3 +1,9 @@
+############################################################
+# Author: Ben Lirio
+# Date: 2/16/21
+# Pledge: I plege my honor that I have abided by the Stevens Honor System
+# Description: Junk project. An alternative to rm. Moves the file to a folder instead of removing it.
+############################################################
 #!/bin/bash
 
 readonly STREAM_TO_NULL=/dev/null
@@ -7,7 +13,7 @@ readonly let HELP_FLAG=$(( 2#0001 ))
 readonly let LIST_FLAG=$(( 2#0010))
 readonly let PURGE_FLAG=$(( 2#0100 ))
 readonly let INCORRECT_FLAG=$(( 2#1000 ))
-readonly JUNK_FOLDER="./.junk"
+readonly JUNK_FOLDER=~/.junk
 
 usage ()
 {
@@ -18,7 +24,6 @@ Usage: $(basename $0) [-hlp] [list of files]
 	-p: Purge all files.
 	[list of files] with no other arguments to junk those files.
 EOF
-	exit 0
 }
 
 incorrect_option=""
@@ -47,7 +52,7 @@ setup_junk_folder ()
 {
 	if [[ ! -e "${JUNK_FOLDER}" ]]
 	then
-		mkdir "${JUNK_FOLDER}"
+		mkdir ${JUNK_FOLDER}
 	fi
 	if [[ ! -d "${JUNK_FOLDER}" ]]
 	then
@@ -71,7 +76,7 @@ junk_files ()
 
 list_junk ()
 {
-	ls -lA "${JUNK_FOLDER}"
+	ls -lAF "${JUNK_FOLDER}"
 
 }
 
@@ -86,12 +91,14 @@ log_incorrect_option ()
 {
 	echo "Error: Incorrect option '${incorrect_option}'"
 	usage
+	exit 1
 }
 
 too_many_options ()
 {
 	echo "Error: Too many options enabled."
 	usage
+	exit 1
 }
 
 parse_flags $*; flag=$?
@@ -105,6 +112,7 @@ then
 	if [[ has_args -eq $FALSE ]]
 	then
 		usage
+		exit 1
 	else
 		too_many_options
 	fi
