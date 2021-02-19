@@ -14,15 +14,8 @@ struct big {
 };
 typedef struct big big_t;
 big_t big_new();
-void big_print(big_t N);
-char* big_to_string(big_t N);
 void big_delete(big_t N); 
-void big_set_n_bytes(big_t *N, int n_bytes); 
-error big_set_one(big_t *N); 
-comparison big_compare(big_t a, big_t b); 
-error big_copy(big_t *dst, big_t src); 
-void big_scale(big_t *N, float factor); 
-void big_add(big_t *N, int val); 
-void max_val(big_t *N, int n_bytes); 
-void ln(big_t *a, big_t N); 
+char* big_to_string(big_t N);
+long double big_to_double(big_t N);
+void big_add(big_t *dst, big_t a, big_t b);
 #endif

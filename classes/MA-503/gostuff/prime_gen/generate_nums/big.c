@@ -15,7 +15,11 @@ big_t big_new(bool sign, int offset, unsigned long int val) {
 		unsigned char mask = -1;
 		N.n_bytes = N.n_bytes + 1;
 		N.bytes = realloc(N.bytes, N.n_bytes);
-		N.bytes[N.n_bytes-1] = val&mask;
+		if (N.sign == true) {
+			N.bytes[N.n_bytes-1] = val&mask;
+		} else {
+			N.bytes[N.n_bytes-1] = (unsigned char)~(val&mask);
+		}
 		val >>= sizeof(char)*BITS_PER_BYTE;
 	}
 	return N;
@@ -23,6 +27,21 @@ big_t big_new(bool sign, int offset, unsigned long int val) {
 void big_delete(big_t N) {
 	free(N.bytes);
 }
+
+long double big_to_double(big_t N) {
+	long double cur = 0;
+	for (int i = 0; i < N.n_bytes; i++) {
+		long double multiplier = 1<<(i*BITS_PER_BYTE);
+		long double val = N.sign == true ? (N.bytes[i]) : (unsigned char) ~N.bytes[i];
+		cur += val * multiplier;
+	}
+	long double exponent = N.offset > 0 ? 1<<N.offset : 1<<(-N.offset);
+	cur = N.offset > 0 ? cur*exponent : cur/exponent;
+	if (N.sign == false)
+		cur = -cur;
+	return cur;
+}
+
 char* big_to_string(big_t N) {
 	int CHARS_TO_REP_BYTE = 2 * sizeof(char);
 	int NULL_TERMINATOR_SIZE = 1;
@@ -43,6 +62,30 @@ char* big_to_string(big_t N) {
 	}
 	msg[msg_size] = '\0';
 	return msg;
+}
+
+
+void big_add(big_t *dst, big_t a, big_t b) {
+	*dst = big_new(true, 0, 0);
+	unsigned char carry = 0;
+	for (int i = 0; i < a.n_bytes || i < b.n_bytes; i++) {
+		int val = carry;
+		unsigned char mask = 0xFF;
+		if (i < a.n_bytes) {
+			val += a.sign == true ? a.bytes[i] : -a.bytes[i];
+		}
+		if (i < b.n_bytes) {
+			val += b.sign == true ? b.bytes[i] : -b.bytes[i];
+		}
+		if (val < 0) {
+			val = -val;
+		}
+		dst->n_bytes = dst->n_bytes + 1;
+		dst->bytes = realloc(dst->bytes, dst->n_bytes);
+		dst->bytes[dst->n_bytes-1] = val&mask;
+		carry = val>>BITS_PER_BYTE;
+	}
+	printf("carry: %d\n", carry);
 }
 /*
 void big_print(big_t N) {
