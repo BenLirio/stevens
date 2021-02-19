@@ -42,6 +42,14 @@ long double big_to_double(big_t N) {
 	return cur;
 }
 
+void big_add(big_t *C, big_t A, big_t B) {
+	*dst = big_new(true, 0, 0);
+	for(int i = 0; i < A.n_bytes || i < B.n_bytes; i++) {
+
+	}
+}
+
+/*
 char* big_to_string(big_t N) {
 	int CHARS_TO_REP_BYTE = 2 * sizeof(char);
 	int NULL_TERMINATOR_SIZE = 1;
@@ -65,29 +73,6 @@ char* big_to_string(big_t N) {
 }
 
 
-void big_add(big_t *dst, big_t a, big_t b) {
-	*dst = big_new(true, 0, 0);
-	unsigned char carry = 0;
-	for (int i = 0; i < a.n_bytes || i < b.n_bytes; i++) {
-		int val = carry;
-		unsigned char mask = 0xFF;
-		if (i < a.n_bytes) {
-			val += a.sign == true ? a.bytes[i] : -a.bytes[i];
-		}
-		if (i < b.n_bytes) {
-			val += b.sign == true ? b.bytes[i] : -b.bytes[i];
-		}
-		if (val < 0) {
-			val = -val;
-		}
-		dst->n_bytes = dst->n_bytes + 1;
-		dst->bytes = realloc(dst->bytes, dst->n_bytes);
-		dst->bytes[dst->n_bytes-1] = val&mask;
-		carry = val>>BITS_PER_BYTE;
-	}
-	printf("carry: %d\n", carry);
-}
-/*
 void big_print(big_t N) {
 	for (int i = N.n_bytes-1; i >= 0; i--) {
 		printf("%.2hhX ", N.bytes[i]);

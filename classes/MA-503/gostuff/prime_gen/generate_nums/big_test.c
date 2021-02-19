@@ -96,49 +96,39 @@ void test_big_to_double() {
 	}
 }
 
-void test_big_to_string() {
-	printf("test_big_to_stirng:\n");
-	big_t N = big_new(true, 0, 255);
-	char* msg = big_to_string(N);
-	for (int i = 0; i < strlen(msg); i++) {
-		if (msg[i] != 'F') {
-			printf("Expected msg[%d] to equal F, got %c\n", i, msg[i]);
-		}
-	}
-	free(msg);
-	big_delete(N);
-}
-
-
 void test_big_add() {
-	big_t a, b, c;
+	for (int i = 0; i < NUM_TESTS; i++) {
+		test_case ta = test_cases[i];
+		big_t A = big_new(ta.sign, ta.offset, ta.val);
+		long double A_double = big_to_double(A);
+		for (int j = 0; j < NUM_TESTS; j++) {
+			test_case tb = test_cases[j];
+			big_t B = big_new(ta.sign, ta.offset, ta.val);
+			long double B_double = big_to_double(B);
 
-	a = big_new(true, 0, 1);
-	b = big_new(true, 0, 2);
-	big_add(&c, a, b);
-	if (big_to_double(c) != 3) {
-		printf("%s\n", big_to_string(c));
-		printf("Expected c to equal 3, got %Lf\n", big_to_double(c));
+			big_t C;
+			big_add(&C, A, B);
+			long double C_double = big_to_double(C);
+			if (C_double != (A_double + B_double)) {
+				printf("Expected %.2Lf + %.2Lf = %.2Lf, got %.2Lf\n", A_double, B_double, A_double+B_double, C_double);
+				big_delete(C);
+				big_delete(A);
+				big_delete(B);
+				goto BAD_CASE;
+				
+			}
+
+			big_delete(C);
+			big_delete(B);
+		}
+		big_delete(A);
 	}
-	big_delete(a);
-	big_delete(b);
-	big_delete(c);
-
-	a = big_new(false, 0, 1);
-	b = big_new(false, 0, 2);
-	big_add(&c, a, b);
-	if (big_to_double(c) != -1) {
-		printf("%s\n", big_to_string(c));
-		printf("Expected c to equal -1, got %Lf\n", big_to_double(c));
-	}
-	big_delete(a);
-	big_delete(b);
-	big_delete(c);
-
+BAD_CASE:{}
 }
 
 int main() {
 	test_big_new();
 	test_big_to_double();
+	test_big_add();
 	//test_big_to_string();
 }
