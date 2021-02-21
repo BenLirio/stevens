@@ -1,3 +1,9 @@
+#############
+# Author: Ben Liro
+# Date: 2/16/21
+# Pledge: I plege my honor that I have abided by the Stevens Honor System
+# Description: Homework 1
+#############
 Problem 1
 
 n = AND
@@ -71,17 +77,14 @@ c) P(D') = 100% - P(D) =
 
 Problem 6
 
-a) 3A's 3B's 3C's =
-   9! / (3! * 3! * 3!)
-// 9! comes from the number of total possible combinations given A1, A2, etc.
-// dividing by 3! * 3! * 3! comes from removing the Permutations A1, A2, etc.
+a) 3A's 3B's 3C's 3D's =
+   9! / (3! * 3! * 3! * 3!) =
+   15120
+   // 9! comes from the number of total possible combinations given A1, A2, etc.
+   // dividing by 3! * 3! * 3! * 3! comes from removing the Permutations A1, A2, etc.
 
-b) With the assumption that all of the outcomes listed in 6.a are equally likely:
-   Let us first count the number of ways all the molecules can be arranged so that
-   the ones of the same letter are adjacent
-   This is equivalent the the problem of permuting A, B, C, and D by mapping values aaa => A and bbb => B, etc
-   where a is a single molecule and A is a group of 3 a's
-   4! the result, so if we now take this answer and divide it by the total number of
-   ways to arrange the molocules we should get our answer.
-   which computes to be 4!/(9! / (3! * 3! * 3!) as shown above
-
+b) Assuming all the outcomes are equally likely,
+   I computed the number of outcomes that satisfy adjacency
+   The result 4! can then be divided by the total number of outcomes
+   Which gives me 24/15120 =
+   1/630
