@@ -2,7 +2,7 @@
 #define BIG_H
 enum Errors {NIL, TOO_SMALL};
 enum Comparison {LESS_THAN=-1, EQUAL_TO=0, GREATER_THAN=1};
-enum bool {true, false};
+enum bool {false, true};
 typedef enum bool bool;
 typedef enum Comparison comparison;
 typedef enum Errors error;

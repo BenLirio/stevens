@@ -5,16 +5,34 @@
 #define BITS_PER_BYTE 8
 #define E 2.71828
 
+static void big_increment_n_bytes(big_t *N) {
+	N->n_bytes += 1;
+	N->bytes = realloc(N->bytes, N->n_bytes);
+}
+
 big_t big_new(bool sign, int offset, unsigned long int val) {
+	if (val == 0 && (sign == false || offset != 0)) {
+		if (sign == false)
+			printf("Panic: Creating a big with val = 0, and sign = false is not allowed");
+		if (offset != 0)
+			printf("Panic: Creating a big with val = 0, and offset != 0 is not allowed");
+		exit(1);
+	}
 	big_t N;
-	N.sign = sign;
 	N.offset = offset;
 	N.bytes = NULL;
 	N.n_bytes = 0;
+	N.sign = sign;
+	if (N.sign == false) {
+		val -= 1;
+		if (val == 0) {
+			big_increment_n_bytes(&N);
+			N.bytes[0] = 0xFF;
+		}
+	}
 	while (val > 0) {
 		unsigned char mask = -1;
-		N.n_bytes = N.n_bytes + 1;
-		N.bytes = realloc(N.bytes, N.n_bytes);
+		big_increment_n_bytes(&N);
 		if (N.sign == true) {
 			N.bytes[N.n_bytes-1] = val&mask;
 		} else {
@@ -35,18 +53,62 @@ long double big_to_double(big_t N) {
 		long double val = N.sign == true ? (N.bytes[i]) : (unsigned char) ~N.bytes[i];
 		cur += val * multiplier;
 	}
+	if (N.sign == false)
+		cur = -cur - 1;
 	long double exponent = N.offset > 0 ? 1<<N.offset : 1<<(-N.offset);
 	cur = N.offset > 0 ? cur*exponent : cur/exponent;
-	if (N.sign == false)
-		cur = -cur;
 	return cur;
 }
 
-void big_add(big_t *C, big_t A, big_t B) {
-	*dst = big_new(true, 0, 0);
-	for(int i = 0; i < A.n_bytes || i < B.n_bytes; i++) {
 
+void big_add(big_t *C, big_t A, big_t B) {
+	*C = big_new(true, 0, 0);
+	int carry = 0;
+
+	int min_offset = A.offset < B.offset ? A.offset : B.offset;
+	C->offset = min_offset;
+	int i = min_offset;
+	while (true) {
+		bool A_valid_range = false;
+		bool B_valid_range = false;
+		int A_pos = i - A.offset;
+		int B_pos = i - B.offset;
+		if (A_pos >= 0 && A_pos < A.n_bytes)
+			A_valid_range = true;
+		if (B_pos >= 0 && B_pos < B.n_bytes)
+			B_valid_range = true;
+		if (A_valid_range == false && B_valid_range == false)
+			break;
+		int A_val = (A.sign == true) ? 0x00 : 0xFF;
+		int B_val = (B.sign == true) ? 0x00 : 0xFF;
+		if (A_valid_range == true)
+			A_val = A.bytes[A_pos];
+		if (B_valid_range == true)
+			B_val = B.bytes[B_pos];
+		int C_pos = A_pos < B_pos ? A_pos : B_pos;
+		int val = A_val + B_val + carry;
+		carry = val>>BITS_PER_BYTE;
+		val = val&0xFF;
+		big_increment_n_bytes(C);
+		C->bytes[C_pos] = val;
+		i++;
 	}
+	if (A.sign && B.sign && carry) {
+		big_increment_n_bytes(C);
+		C->bytes[C->n_bytes-1] = 1;
+		return;
+	} 
+	if (!A.sign && !B.sign && carry) {
+		C->sign = false;
+		return;
+	}
+	if (!A.sign && !B.sign && !carry) {
+		C->sign = false;
+		big_increment_n_bytes(C);
+		C->bytes[C->n_bytes-1] = 0xFE;
+		return;
+	}
+	C->sign = !((!A.sign + !B.sign + carry)%2);
 }
 
 /*
