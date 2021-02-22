@@ -1,0 +1,53 @@
+Objective
+Sort:
+	Strings
+	Ints
+	Doubles
+
+lomuto partitioning
+
+pointers, pointer conversion, file reading, type conversion, function pointers, and makefiles
+
+Problem
+Submit Zip
+sort.c - main
+quicksort.h - header library
+quicksort.c - implement quicksort.h
+makefile - directions for building the project
+
+Do not change headers
+
+Function pointers:
+https://www.geeksforgeeks.org/function-pointer-in-c
+
+Command Line Arguments:
+./sort [-i|-d] filename
+
+-i integers
+-d doubles
+no flag - strings
+
+Must include <getopt.h> to parse
+https://azrael.digpen.edu/~mmead/www/mg/getopt/index.html
+
+Error Checking
+No input EXIT_FAILURE
+Invalid Flag EXIT_FAILURE
+Invalid filename EXIT_FAILURE
+No filename EXIT_FAILURE
+Multiple filenames EXIT_FAILURE
+Multiple valid flages EXIT_FAILURE
+Multiples flags with invalid flag EXIT_FAILURE
+
+Contents of input file will be correct
+Assume each line contains string, int or double
+Every line in the file will be the same data type
+at most 1024 lines each line will be up to 64
+Every Line will end with a new line
+
+You must use getopt to parse command line arguments.
+You'll need to become comfortable with void pointers and pointer arithmetic
+Use gdb to help find segaults and valgrind to check for memory leaks.
+Start this assignment early. The concept is straitforward, but the details might require some time and effort
+
+
