@@ -11,9 +11,19 @@ func check(e error) {
 	}
 }
 
+func GetTerminalSettings() (*unix.Termios, error) {
+	termios, err := unix.IoctlGetTermios(unix.Stdin, unix.TCGETS)
+	if err != nil {
+		return &unix.Termios{}, err
+	}
+	return termios, nil
+}
+
+
 func ConfigureTermio() {
 	termio, err := unix.IoctlGetTermios(unix.Stdin, unix.TCGETS)
 	check(err)
+
 	termio.Lflag &= ^uint32(unix.ECHO)
 	termio.Lflag &= ^uint32(unix.ICANON)
 	err = unix.IoctlSetTermios(unix.Stdin, unix.TCSETS, termio)
@@ -21,7 +31,6 @@ func ConfigureTermio() {
 }
 
 func main() {
-	ConfigureTermio()
 	b := make([]byte, 1)
 	for {
 		os.Stdin.Read(b)

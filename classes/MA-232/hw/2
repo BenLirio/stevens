@@ -1,0 +1,73 @@
+Problem 1
+Which matricies E21 E31 produce zero in the (2,1) respectively (3,1) position of E21*A respectivly E31*A for
+A =
+|  2  1  0  |
+|           |
+| -2  0  1  |
+|           |
+|  8  5  3  |
+
+Problem 2
+Use Gauss elimination method in order to find the inverse of the following matrices
+A =
+|  0  0  0  2  |
+|              |
+|  0  0  3  0  |
+|              |
+|  0  4  0  0  |
+|              |
+|  5  0  0  0  |
+
+B =
+|  3  2  0  0  |
+|              |
+|  4  3  0  0  |
+|              |
+|  0  0  6  5  |
+|              |
+|  0  0  7  6  |
+
+Problem 3
+Factor the symmetric matrix A
+A =
+|  2 -1  0  |
+|           |
+| -1  2 -1  |
+|           |
+|  0 -1  2  |
+
+A = LDT^t
+
+Problem 4
+Find the space of vectors which b =
+
+b =
+| b1 |
+|    |
+| b1 |
+|    |
+| b1 |
+
+A =
+|  1  1  1  | | x1 |   | b1 |
+|           | |    |   |    |
+|  0  0  1  |*| x2 | = | b2 |
+|           | |    |   |    |
+|  0  0  1  | | x3 |   | b3 |
+
+Problem 5
+Reduce the following matrices to their row reduced echelon form:
+
+A =
+|  1  2  2  4  6  |
+|                 |
+|  1  2  3  6  9  |
+|                 |
+|  0  0  1  2  3  |
+
+B =
+|  2  4  2  |
+|           |
+|  0  4  4  |
+|           |
+|  0  8  8  |

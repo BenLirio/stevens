@@ -1,0 +1,5 @@
+Let A1, A2, ..., Ak be a collection of k mutually exclusive and exhaustive events with prior probabilities P(Ai)(i = 1,...k). Then for any other event B for which P(B) > 0, the posterior probability of Aj given that B has occurred is
+
+P(Aj|B) = 
+P(Aj n B) / P(B) =
+P(B|Aj)*P(Aj) / SUM(P(B|Ai) * P(Ai))

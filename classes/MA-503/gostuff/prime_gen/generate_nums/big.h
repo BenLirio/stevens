@@ -14,8 +14,11 @@ struct big {
 };
 typedef struct big big_t;
 big_t big_new();
+void big_set(big_t *N, bool sign, int offset, unsigned long int val);
 void big_delete(big_t N); 
 char* big_to_string(big_t N);
 long double big_to_double(big_t N);
-void big_add(big_t *dst, big_t a, big_t b);
+void big_add(big_t *C, big_t A, big_t B);
+void big_multiply(big_t *C, big_t A, big_t B);
+void big_flip_sign(big_t *N);
 #endif

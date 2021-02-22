@@ -13,9 +13,9 @@ struct test_case {
 typedef struct test_case test_case;
 test_case test_cases[NUM_TESTS] = {
 	// Trivial Examples
+	{false, 0, 1},
 	{true, 0, 0},
 	{true, 0, 1},
-	{false, 0, 1},
 	{true, 1, 1},
 	{false, 1, 1},
 	{true, -1, 1},
@@ -47,10 +47,17 @@ test_case test_cases[NUM_TESTS] = {
 
 void test_big_new() {
 	printf("test_big_new:\n");
+	big_t N = big_new();
+	big_delete(N);
+}
+
+void test_big_set() {
+	printf("test_big_set:\n");
 	big_t N;
 	for (int i = 0; i < NUM_TESTS; i++) {
 		test_case t = test_cases[i];
-		N = big_new(t.sign, t.offset, t.val);
+		N = big_new();
+		big_set(&N, t.sign, t.offset, t.val);
 		if (N.sign != t.sign && t.val != 0)
 			printf("Expected sign to be %d, got %d\n", t.sign, N.sign);
 		if (N.offset != t.offset)
@@ -65,7 +72,8 @@ void test_big_to_double() {
 	big_t N;
 	for (int i = 0; i < NUM_TESTS; i++) {
 		test_case t = test_cases[i];
-		N = big_new(t.sign, t.offset, t.val);
+		N = big_new();
+		big_set(&N, t.sign, t.offset, t.val);
 		long double N_double = big_to_double(N);
 		long double val = t.val;
 		if (t.sign == false)
@@ -93,14 +101,18 @@ void test_big_to_double() {
 	}
 }
 
+
 void test_big_add() {
+	printf("test_big_add:\n");
 	for (int i = 0; i < NUM_TESTS; i++) {
 		test_case ta = test_cases[i];
-		big_t A = big_new(ta.sign, ta.offset, ta.val);
+		big_t A = big_new();
+		big_set(&A, ta.sign, ta.offset, ta.val);
 		long double A_double = big_to_double(A);
 		for (int j = 0; j < NUM_TESTS; j++) {
 			test_case tb = test_cases[j];
-			big_t B = big_new(ta.sign, ta.offset, ta.val);
+			big_t B = big_new();
+			big_set(&B, tb.sign, tb.offset, tb.val);
 			long double B_double = big_to_double(B);
 
 			big_t C;
@@ -123,9 +135,65 @@ void test_big_add() {
 BAD_CASE:{}
 }
 
+/*
+void test_big_flip_sign() {
+	printf("test_big_flip_sign:\n");
+	for (int i = 0; i < NUM_TESTS; i++) {
+		test_case t = test_cases[i];
+		if (t.val == 0)
+			continue;
+		big_t N = big_new(t.sign, t.offset, t.val);
+		long double N_double = big_to_double(N);
+		big_flip_sign(&N);
+		long double N_double_flipped = big_to_double(N);
+		if (N_double != -N_double_flipped) {
+			printf("Expected %.2Lf * -1 = %.2Lf\n", N_double, N_double_flipped);
+		}
+
+		big_delete(N);
+	}
+}
+
+void test_big_multiply() {
+	printf("test_big_multiply:\n");
+	for (int i = 0; i < NUM_TESTS; i++) {
+		test_case ta = test_cases[i];
+		big_t A = big_new(ta.sign, ta.offset, ta.val);
+		long double A_double = big_to_double(A);
+		for (int j = 0; j < NUM_TESTS; j++) {
+			test_case tb = test_cases[j];
+			big_t B = big_new(tb.sign, tb.offset, tb.val);
+			long double B_double = big_to_double(B);
+
+			big_t C;
+			big_multiply(&C, A, B);
+			long double C_double = big_to_double(C);
+			if (C_double != (A_double * B_double)) {
+				printf("----\n");
+				printf("ta.val = %lu\n", ta.val);
+				printf("tb.val = %lu\n", tb.val);
+				printf("Expected %.2Lf * %.2Lf = %.2Lf, got %.2Lf\n", A_double, B_double, A_double*B_double, C_double);
+				big_delete(C);
+				big_delete(A);
+				big_delete(B);
+				goto BAD_CASE;
+				
+			}
+
+			big_delete(C);
+			big_delete(B);
+		}
+		big_delete(A);
+	}
+BAD_CASE:{}
+}
+
+*/
 int main() {
 	test_big_new();
+	test_big_set();
 	test_big_to_double();
+	//test_big_flip_sign();
 	test_big_add();
-	//test_big_to_string();
+	//test_big_multiply();
 }
