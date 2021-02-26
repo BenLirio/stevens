@@ -1,0 +1,222 @@
+<h1 id="homework-2">Homework 2</h1>
+<p><strong>Ben Lirio</strong></p>
+<p><strong>Feb-22 2021</strong></p>
+<blockquote>
+<p>I pledge my honor that I have abided by the Stevens Honor System.</p>
+</blockquote>
+<p>Syntax:</p>
+<p>The following <strong>H = Heads</strong> followed by a <strong>P(H)</strong> can be interpreted as “The probability heads occures”</p>
+<h2 id="problem-1">Problem 1</h2>
+<p><strong>S = Small</strong></p>
+<p><strong>M = Medium</strong></p>
+<p><strong>L = Large</strong></p>
+<p><strong>R = Regular</strong></p>
+<p><strong>D = Decaf</strong></p>
+<ol type="a">
+<li>What is the probability the the individual purchased a small cup?</li>
+</ol>
+<blockquote>
+<p>P(S)</p>
+<p>= P(SR) + P(SD)</p>
+<p>= 14% + 20%</p>
+<p>= 34%</p>
+<p>What is the probability of a decaf cup?</p>
+<p>P(D)</p>
+<p>= P(SD) + P(MD) + P(LD)</p>
+<p>= 20% + 10% + 10%</p>
+<p>= <strong>40%</strong></p>
+</blockquote>
+<ol start="2" type="a">
+<li>Given that the individual purchased a small cup, to find the probability that they select a decaf cup can be solved as follows:</li>
+</ol>
+<blockquote>
+<p>P(D|S) =</p>
+<p>= P(D <span class="math inline">∩</span> S) / P(S)</p>
+<p>= 20% / 34%</p>
+<p>= <strong>58.823%</strong></p>
+<p>Interpretation:</p>
+<p>Small cups of coffe are more likey to contain decaf than other sizes</p>
+</blockquote>
+<ol start="3" type="a">
+<li>If we know that the cup of coffe was decaf the probability it is also small is:</li>
+</ol>
+<blockquote>
+<p>P(S|D) =</p>
+</blockquote>
+<blockquote>
+<p>= P(S <span class="math inline">∩</span> D) / P(D)</p>
+</blockquote>
+<blockquote>
+<p>= 20% / 40%</p>
+</blockquote>
+<blockquote>
+<p>= <strong>50%</strong></p>
+</blockquote>
+<blockquote>
+<p>Interpretation: P(S|D) is 10% more likely than just P(S)</p>
+</blockquote>
+<h2 id="problem-2">Problem 2</h2>
+<p><strong>A = Manufactured in the U.S.</strong></p>
+<p><strong>B = Has an icemaker</strong></p>
+<p><strong>C = Purchased extended warenty</strong></p>
+<p><strong>P(A) = .75</strong></p>
+<p><strong>P(B|A) = .9</strong></p>
+<p><strong>P(B|A’) = .8</strong></p>
+<p><strong>P(C|A <span class="math inline">∩</span> B) = .8</strong></p>
+<p><strong>P(C|A <span class="math inline">∩</span> B’) = .6</strong></p>
+<p><strong>P(C|A’ <span class="math inline">∩</span> B) = .7</strong></p>
+<p><strong>P(C|A’ <span class="math inline">∩</span> B’) = .3</strong></p>
+<ol type="a">
+<li><p>IMAGE ATTACHED</p></li>
+<li><p>Compute P(A <span class="math inline">∩</span> B <span class="math inline">∩</span> C). Meaning the slected refrigerator buyer satisfies all three events. They purchased the extended warenty and included an icemaker all of which was manufactored in the U.S. Here is the probability:</p></li>
+</ol>
+<blockquote>
+<p>P(A <span class="math inline">∩</span> B <span class="math inline">∩</span> C)</p>
+<p>= P(A) <span class="math inline">×</span> P(B|A) <span class="math inline">×</span> P(C|A <span class="math inline">∩</span> B)</p>
+<p>= .75 <span class="math inline">×</span> .9 <span class="math inline">×</span> .8</p>
+<p>= <strong>.54</strong></p>
+</blockquote>
+<ol start="3" type="a">
+<li>Compute P(B <span class="math inline">∩</span> C). This means the probability that the purchased refrigerator has and icemaker and is purchased with and extended warenty.</li>
+</ol>
+<blockquote>
+<p>P(B <span class="math inline">∩</span> C)</p>
+<p>= P((B <span class="math inline">∩</span> C <span class="math inline">∩</span> A’) <span class="math inline">∪</span> (B <span class="math inline">∩</span> C <span class="math inline">∩</span> A)) =</p>
+<p>= .75 <span class="math inline">×</span> .9 <span class="math inline">×</span> .8 + .25 <span class="math inline">×</span> .8 <span class="math inline">×</span> .7</p>
+<p>= <strong>0.68</strong></p>
+</blockquote>
+<ol start="4" type="a">
+<li>Calculate P(C). Probability that the refrigerator was purchased with an extended warenty. This can be done by tracing all the routes to C and multipling probabilites along the way. All events are disjoint so adding all the routes is valid.</li>
+</ol>
+<blockquote>
+<p>= P(A) <span class="math inline">×</span> P(B|A) <span class="math inline">×</span> P(C|A <span class="math inline">∩</span> B) +</p>
+<p>P(A) <span class="math inline">×</span> P(B’|A) <span class="math inline">×</span> P(C|A <span class="math inline">∩</span> B’) +</p>
+<p>P(A’) <span class="math inline">×</span> P(B|A’) <span class="math inline">×</span> P(C|A’ <span class="math inline">∩</span> B) +</p>
+<p>P(A’) <span class="math inline">×</span> P(B’|A’) <span class="math inline">×</span> P(C|A’ <span class="math inline">∩</span> B’)</p>
+<p>= .75 <span class="math inline">×</span> .9 <span class="math inline">×</span> .8 +</p>
+<p>.75 <span class="math inline">×</span> .1 <span class="math inline">×</span> .6 +</p>
+<p>.25 <span class="math inline">×</span> .8 <span class="math inline">×</span> .7 +</p>
+<p>.25 <span class="math inline">×</span> .2 <span class="math inline">×</span> .3</p>
+<p>= .54 + .045 + .14 + .015</p>
+<p>= <strong>0.74</strong></p>
+</blockquote>
+<ol start="5" type="a">
+<li>Compute P(A|B <span class="math inline">∩</span> C), the probability of a U.S. purchase given that an icemaker and extened warranty are also purchased.</li>
+</ol>
+<blockquote>
+<p>P(A|B <span class="math inline">∩</span> C)</p>
+<p>= P(A <span class="math inline">∩</span> B <span class="math inline">∩</span> C) / P(B <span class="math inline">∩</span> C)</p>
+<p>= P(A <span class="math inline">∩</span> B <span class="math inline">∩</span> C) / (P(A) * P(B|A) * P(C|A <span class="math inline">∩</span> B) + P(A’) * P(B|A’) * P(C|A’ <span class="math inline">∩</span> B))</p>
+<p>= .54 / .68</p>
+<p>= <strong>0.79418</strong></p>
+</blockquote>
+<h2 id="problem-3">Problem 3</h2>
+<p>Because of independence I am assuming P(A|B) = P(A), hence P(A <span class="math inline">∩</span> B) = P(A) <span class="math inline">×</span> P(B).</p>
+<p><strong>A1 = Reciever works</strong></p>
+<p><strong>A2 = Speaker works</strong></p>
+<p><strong>A3 = CD playter works</strong></p>
+<p><strong>A(A1) = .95</strong></p>
+<p><strong>P(A2) = .98</strong></p>
+<p><strong>P(A3) = .80</strong></p>
+<ol type="a">
+<li>All three components function properly throughout the warranty period. Interpreted as P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3).</li>
+</ol>
+<blockquote>
+<p>P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3)</p>
+<p>= P(A1) <span class="math inline">×</span> P(A2) <span class="math inline">×</span> P(A3)</p>
+<p>= .95 <span class="math inline">×</span> .98 <span class="math inline">×</span> .80</p>
+<p>= 0.7448</p>
+</blockquote>
+<ol start="2" type="a">
+<li>At least one of the components needs service during the warranty period</li>
+</ol>
+<blockquote>
+<p>P(A1’ <span class="math inline">∪</span> A2’ <span class="math inline">∪</span> A3’)</p>
+<p>= P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3)’</p>
+<p>= 1 - P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3)</p>
+<p>= 1 - .7748</p>
+<p>= <strong>0.2552</strong></p>
+</blockquote>
+<ol start="3" type="a">
+<li>All three componenets need service during the warrenty period</li>
+</ol>
+<blockquote>
+<p>P(A1’ <span class="math inline">∩</span> A2’ <span class="math inline">∩</span> A3’)</p>
+<p>= P(A1’) <span class="math inline">×</span> P(A2’) <span class="math inline">×</span> P(A3’)</p>
+<p>= .05 <span class="math inline">×</span> .02 <span class="math inline">×</span> .2</p>
+<p>= <strong>0.0002</strong></p>
+</blockquote>
+<ol start="4" type="a">
+<li>Only the reciever needs service during the warranty period</li>
+</ol>
+<blockquote>
+<p>P(A1’ <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3)</p>
+<p>= P(A1’) <span class="math inline">×</span> P(A2) <span class="math inline">×</span> P(A3)</p>
+<p>= .05 <span class="math inline">×</span> .98 <span class="math inline">×</span> .8</p>
+<p>= <strong>0.0392</strong></p>
+</blockquote>
+<ol start="6" type="a">
+<li>Exatly one of the componenets needs service</li>
+</ol>
+<blockquote>
+<p>(A1’ <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3) + P(A2’ <span class="math inline">∩</span> A1 <span class="math inline">∩</span> A3) + P(A3’ <span class="math inline">∩</span> A1 <span class="math inline">∩</span> A2)</p>
+</blockquote>
+<blockquote>
+<p>.05 <span class="math inline">×</span> .98 <span class="math inline">×</span> .8 + .02 <span class="math inline">×</span> .95 <span class="math inline">×</span> .80 + .20 <span class="math inline">×</span> .95 <span class="math inline">×</span> .98</p>
+</blockquote>
+<blockquote>
+<p><strong>.233</strong></p>
+</blockquote>
+<ol start="4" type="a">
+<li>Function during warranty the one fails within a month. The probabilies are not supplied in the question so I give a range.</li>
+</ol>
+<blockquote>
+<p>P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3) <span class="math inline">×</span> P(?|P(A1 <span class="math inline">∩</span> A2 <span class="math inline">∩</span> A3))</p>
+<p>= <strong>less than 0.7448 greater than or equal to 0</strong></p>
+</blockquote>
+<h2 id="problem-4">Problem 4</h2>
+<p><strong>A1 = likes vehical #1</strong></p>
+<p><strong>A2 = likes vehical #2</strong></p>
+<p><strong>A3 = likes vehical #3</strong></p>
+<p><strong>P(A1) = .55</strong></p>
+<p><strong>P(A2) = .65</strong></p>
+<p><strong>P(A3) = .70</strong></p>
+<p><strong>P(A1 <span class="math inline">∪</span> A2) = .80</strong></p>
+<p><strong>P(A2 <span class="math inline">∩</span> A3) = .40</strong></p>
+<p><strong>P(A1 <span class="math inline">∪</span> A2 <span class="math inline">∪</span> A3) = .88</strong></p>
+<ol type="a">
+<li>An individual likes both vehicle #1 and vehicle #2. Means P(A1 <span class="math inline">∩</span> A2).</li>
+</ol>
+<blockquote>
+<p>P(A1 <span class="math inline">∩</span> A2)</p>
+<p>= P(A1) + P(A2) - P(A1 <span class="math inline">∪</span> A2)</p>
+<p>= .55 + .65 - .80</p>
+<p>= <strong>0.4</strong></p>
+</blockquote>
+<ol start="2" type="a">
+<li>Determine and interpret P(A2|A3)</li>
+</ol>
+<blockquote>
+<p>P(A2|A3)</p>
+<p>= P(A2 <span class="math inline">∩</span> A3) / P(A3)</p>
+<p>= .40 / .70</p>
+<p>= <strong>0.571</strong></p>
+<p>Knowing an individual likes A3 increases the odds they like A2</p>
+</blockquote>
+<ol start="3" type="a">
+<li>Are P(A2) and P(A3) independent. Answer two ways</li>
+</ol>
+<blockquote>
+<p>No, in both cases</p>
+<p>P(A2) != P(A2|A3)</p>
+<p><strong>.65 != .571</strong></p>
+<p>Also, P(A1 $A2) != P(A1) <span class="math inline">×</span> P(A2)</p>
+<p><strong>0.4 != .3575</strong></p>
+</blockquote>
+<ol start="4" type="a">
+<li>The customer did not like vehical #1. Now, what is the probability that they liked at least one of the other two vehicles. Thinking about this prblem using area this is the area that satisfies the event P(A1 <span class="math inline">∪</span> A2 <span class="math inline">∪</span> A3) - P(A1). The total area left after the cutomer did not like vehical #1 is 1 - P(A). Now we just divide the valid area by the total left.</li>
+</ol>
+<blockquote>
+<p>(.88 - .55) / (1 - .55)</p>
+<p>= <strong>0.733</strong></p>
+</blockquote>

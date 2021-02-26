@@ -1,0 +1,206 @@
+{
+  "@context": {
+    "EntitySearchResult": "goog:EntitySearchResult",
+    "@vocab": "http://schema.org/",
+    "detailedDescription": "goog:detailedDescription",
+    "goog": "http://schema.googleapis.com/",
+    "kg": "http://g.co/kg",
+    "resultScore": "goog:resultScore"
+  },
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "EntitySearchResult",
+      "resultScore": 32.503902435302727,
+      "result": {
+        "detailedDescription": {
+          "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+          "articleBody": "Kanye is a town in southern Botswana, located 83 kilometres south-west of the capital, Gaborone. It is the administrative centre of the Southern District, and had a population of 45,196 at the 2011 census, making it the eighth-largest town in the country. ",
+          "url": "https://en.wikipedia.org/wiki/Kanye,_Botswana"
+        },
+        "name": "Kanye",
+        "description": "Town in Botswana",
+        "@type": [
+          "Thing",
+          "City",
+          "Place"
+        ],
+        "@id": "kg:/m/09cx2p"
+      }
+    },
+    {
+      "@type": "EntitySearchResult",
+      "resultScore": 17.317438125610352,
+      "result": {
+        "@id": "kg:/m/03bkkv",
+        "@type": [
+          "Thing",
+          "Book"
+        ],
+        "description": "Novel by J. K. Rowling",
+        "detailedDescription": {
+          "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+          "articleBody": "Harry Potter and the Deathly Hallows is a fantasy novel written by British author J. K. Rowling and the seventh and final novel of the Harry Potter series. ",
+          "url": "https://en.wikipedia.org/wiki/Harry_Potter_and_the_Deathly_Hallows"
+        },
+        "url": "http://www.harrypotter.bloomsbury.com/uk/harry-potter-and-the-deathly-hallows-childrens-paperback-9781408855713/?ewid=72",
+        "name": "Harry Potter and the Deathly Hallows"
+      }
+    },
+    {
+      "@type": "EntitySearchResult",
+      "resultScore": 16.0686092376709,
+      "result": {
+        "name": "Saint Pierre and Miquelon",
+        "@id": "kg:/m/06s4c",
+        "@type": [
+          "Thing",
+          "Country",
+          "Place",
+          "AdministrativeArea"
+        ],
+        "detailedDescription": {
+          "url": "https://en.wikipedia.org/wiki/Saint_Pierre_and_Miquelon",
+          "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+          "articleBody": "Saint Pierre and Miquelon, officially the Territorial Collectivity of Saint-Pierre and Miquelon, is a self-governing territorial overseas collectivity of France in the northwestern Atlantic Ocean near the Canadian province of Newfoundland and Labrador. "
+        }
+      }
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "@type": [
+          "Thing"
+        ],
+        "name": "Kanye",
+        "@id": "kg:/g/11j60nfk92"
+      },
+      "@type": "EntitySearchResult"
+    },
+    {
+      "result": {
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ],
+        "@id": "kg:/g/11fk9klz8w"
+      },
+      "@type": "EntitySearchResult",
+      "resultScore": 7
+    },
+    {
+      "result": {
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ],
+        "@id": "kg:/g/11ftzm7_3m"
+      },
+      "@type": "EntitySearchResult",
+      "resultScore": 7
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "@type": [
+          "Thing"
+        ],
+        "name": "Kanye",
+        "@id": "kg:/g/1s05wrgpz",
+        "description": "Song by Bonde do Rolê"
+      },
+      "@type": "EntitySearchResult"
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "description": "Song by Bogan Via",
+        "name": "Kanye",
+        "@id": "kg:/g/11b67kh8hq",
+        "@type": [
+          "Thing"
+        ]
+      },
+      "@type": "EntitySearchResult"
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "@id": "kg:/g/11l7nfc7gx",
+        "description": "Song by Patriot J",
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ]
+      },
+      "@type": "EntitySearchResult"
+    },
+    {
+      "resultScore": 7,
+      "@type": "EntitySearchResult",
+      "result": {
+        "name": "Kanye",
+        "@id": "kg:/g/11jjk5tf8s",
+        "description": "Song by Daniel Blair",
+        "@type": [
+          "Thing"
+        ]
+      }
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ],
+        "@id": "kg:/g/11fksmmfdt"
+      },
+      "@type": "EntitySearchResult"
+    },
+    {
+      "result": {
+        "@id": "kg:/g/11j9hl5gmb",
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ]
+      },
+      "@type": "EntitySearchResult",
+      "resultScore": 7
+    },
+    {
+      "result": {
+        "@id": "kg:/g/11ftzbwj42",
+        "name": "Kanye",
+        "@type": [
+          "Thing"
+        ]
+      },
+      "@type": "EntitySearchResult",
+      "resultScore": 7
+    },
+    {
+      "@type": "EntitySearchResult",
+      "result": {
+        "name": "Kanye",
+        "@id": "kg:/g/11jg59tqb0",
+        "@type": [
+          "Thing"
+        ]
+      },
+      "resultScore": 7
+    },
+    {
+      "resultScore": 7,
+      "result": {
+        "@type": [
+          "Thing"
+        ],
+        "name": "Kanye",
+        "@id": "kg:/g/11hmz97fn0"
+      },
+      "@type": "EntitySearchResult"
+    }
+  ]
+}
