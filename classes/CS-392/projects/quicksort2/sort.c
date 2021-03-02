@@ -130,11 +130,24 @@ int main(int argc, char **argv) {
 		int** array = (int**) malloc(sizeof(int*) * num_lines);
 		for (int i = 0; i < num_lines; i++) {
 			*(array+i) = (int*) malloc(sizeof(int));
-			**(array+i) = i;
+			**(array+i) = atoi(lines[i]);
 		}
 		quicksort(array, num_lines, sizeof(int), int_cmp);
 		for (int i = 0; i < num_lines; i++) {
 			printf("%d\n", **(array+i));
+			free(*(array+i));
+		}
+		free(array);
+	}
+	if (element_type == DOUBLE) {
+		double** array = (double**) malloc(sizeof(double*) * num_lines);
+		for (int i = 0; i < num_lines; i++) {
+			*(array+i) = (double*) malloc(sizeof(double));
+			**(array+i) = atof(lines[i]);
+		}
+		quicksort(array, num_lines, sizeof(double), dbl_cmp);
+		for (int i = 0; i < num_lines; i++) {
+			printf("%f\n", **(array+i));
 			free(*(array+i));
 		}
 		free(array);

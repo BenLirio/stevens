@@ -28,10 +28,7 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  * -- a negative if the second integer is greater
  */
 int int_cmp(const void *a, const void *b) {
-	//int *a_cast = *(int**)a;
-	//int *b_cast = *(int**)b;
-	return 0;
-	//return *a_cast > *b_cast;
+	return *(int*)a > *(int*)b;
 }
 
 /**
@@ -44,8 +41,7 @@ int int_cmp(const void *a, const void *b) {
  * -- -1 if the second double is greater
  */
 int dbl_cmp(const void *a, const void *b) {
-    // TODO
-	return 0;
+	return *(double*)a > *(double*)b;
 }
 
 /**
@@ -103,8 +99,8 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
 			swap(*(data+i), *(data+j), elem_sz);
 		}
 	}
-	swap(*(data+i+1), *(data+pivot), elem_sz);
-	return i+1;
+	swap(*(data+i+1), *(data+right), elem_sz);
+	return (i+1);
 }
 
 /**
@@ -115,11 +111,9 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
  */
 static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
                              int (*comp) (const void*, const void*)) {
-	int pivot = lomuto(array, left, right, elem_sz, comp);
-	if (pivot+1 < right) {
+	if (left < right) {
+		int pivot = lomuto(array, left, right, elem_sz, comp);
 		quicksort_helper(array, pivot+1, right, elem_sz, comp);
-	}
-	if (pivot-1 > left) {
 		quicksort_helper(array, left, pivot-1, elem_sz, comp);
 	}
 }
