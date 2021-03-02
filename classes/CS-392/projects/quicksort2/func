@@ -1,0 +1,37 @@
+/**
+ * Reads data from filename into an already allocated 2D array of chars.
+ * Exits the entire program if the file cannot be opened.
+ */
+size_t read_data(char *filename, char **data) {
+    // Open the file.
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Cannot open '%s'. %s.\n", filename,
+                strerror(errno));
+        free(data);
+        exit(EXIT_FAILURE);
+    }
+
+    // Read in the data.
+    size_t index = 0;
+    char str[MAX_STRLEN + 2];
+    char *eoln;
+    while (fgets(str, MAX_STRLEN + 2, fp) != NULL) {
+        eoln = strchr(str, '\n');
+        if (eoln == NULL) {
+            str[MAX_STRLEN] = '\0';
+        } else {
+            *eoln = '\0';
+        }
+        // Ignore blank lines.
+        if (strlen(str) != 0) {
+            data[index] = (char *)malloc((MAX_STRLEN + 1) * sizeof(char));
+            strcpy(data[index++], str);
+        }
+    }
+
+    // Close the file before returning from the function.
+    fclose(fp);
+
+    return index;
+}
