@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Name        : sort.c
- * Author      : 
- * Date        : 
+ * Author      : Ben Lirio
+ * Date        : 3/2/21
  * Description : Uses quicksort to sort a file of either ints, doubles, or
  *               strings.
- * Pledge      :
+ * Pledge      : I pledge my honor that I have abided by the Stevens Honor System.
  ******************************************************************************/
 
 #include <errno.h>
@@ -39,6 +39,68 @@ typedef enum {
  * Frees all data.
  * Ensures there are no memory leaks with valgrind. 
  */
+
+void usage();
+
+elem_t get_element_type(int argc, char **argv);
+
+/**
+ * CREDIT: read_data from canvas
+ * Reads data from filename into an already allocated 2D array of chars.
+ * Exits the entire program if the file cannot be opened.
+ */
+size_t read_data(char *filename, char **data);
+
+int get_file_name_index(int argc, elem_t element_type);
+
+void *parse_str(void* dst, char* line);
+void *parse_int(void* dst, char* line);
+void *parse_dbl(void* dst, char* line);
+
+void free_str(void* a);
+void free_int(void* a);
+void free_dbl(void* a);
+
+void print_str(void* a);
+void print_int(void* a);
+void print_dbl(void* a);
+
+int element_sizes[3] = {sizeof(char*), sizeof(int), sizeof(double)};
+int (*cmp_funcs[3])(const void*, const void*) = {str_cmp, int_cmp, dbl_cmp};
+void (*free_funcs[3])(void*) = {free_str, free_int, free_dbl};
+void (*print_funcs[3])(void*) = {print_str, print_int, print_dbl};
+void *(*parse_funcs[3])(void*, char*) = {parse_str, parse_int, parse_dbl};
+
+int main(int argc, char **argv) {
+	// Error: CASE 1
+	if (argc <= 1) {
+		usage();
+		exit(EXIT_FAILURE);
+	}
+	elem_t element_type = get_element_type(argc, argv);
+	int file_name_index = get_file_name_index(argc, element_type);
+	char file_name[128];
+	strcpy(file_name, argv[file_name_index]);
+
+	char **lines = malloc(sizeof(char*)*MAX_ELEMENTS);
+	int num_lines = read_data(file_name, lines);
+
+	void** array = (void**)malloc(sizeof(void*) * num_lines);
+	for (int i = 0; i < num_lines; i++) {
+		*(array+i) = parse_funcs[element_type](*(array+i), lines[i]);
+	}
+	quicksort(array, num_lines, element_sizes[element_type], cmp_funcs[element_type]);
+	for (int i = 0; i < num_lines; i++) {
+		print_funcs[element_type](*(array+i));
+		free_funcs[element_type](*(array+i));
+	}
+	free(array);
+	for (int i = 0; i < num_lines; i++) {
+		free(lines[i]);
+	}
+	free(lines);
+    return EXIT_SUCCESS;
+}
 
 void usage() {
 	printf("Usage ./sort [-i|-d] filename \
@@ -141,6 +203,9 @@ int get_file_name_index(int argc, elem_t element_type) {
 	return file_name_index;
 }
 
+/*
+ * Parsing functions
+ */
 void *parse_str(void* dst, char* line) {
 	char** dst_cast = (char**) dst;
 	dst_cast = (char**) malloc(sizeof(char*));
@@ -159,8 +224,10 @@ void *parse_dbl(void* dst, char* line) {
 	*dst_cast = atof(line);
 	return dst_cast;
 }
-void *(*parse_funcs[3])(void*, char*) = {parse_str, parse_int, parse_dbl};
 
+/*
+ * Free functions
+ */
 void free_str(void* a) {
 	char** a_cast = (char**)a;
 	free(*a_cast);
@@ -174,6 +241,10 @@ void free_dbl(void* a) {
 	double* a_cast = (double*)a;
 	free(a_cast);
 }
+
+/*
+ * Print functions
+ */
 void print_str(void* a) {
 	char** a_cast = (char**)a;
 	printf("%s\n", *a_cast);
@@ -186,38 +257,4 @@ void print_dbl(void* a) {
 	double* a_cast = (double*)a;
 	printf("%f\n", *a_cast);
 }
-int element_sizes[3] = {sizeof(char*), sizeof(int), sizeof(double)};
-int (*cmp_funcs[3])(const void*, const void*) = {str_cmp, int_cmp, dbl_cmp};
-void (*free_funcs[3])(void*) = {free_str, free_int, free_dbl};
-void (*print_funcs[3])(void*) = {print_str, print_int, print_dbl};
 
-int main(int argc, char **argv) {
-	// Error: CASE 1
-	if (argc <= 1) {
-		usage();
-		exit(EXIT_FAILURE);
-	}
-	elem_t element_type = get_element_type(argc, argv);
-	int file_name_index = get_file_name_index(argc, element_type);
-	char file_name[128];
-	strcpy(file_name, argv[file_name_index]);
-
-	char **lines = malloc(sizeof(char*)*MAX_ELEMENTS);
-	int num_lines = read_data(file_name, lines);
-
-	void** array = (void**)malloc(sizeof(void*) * num_lines);
-	for (int i = 0; i < num_lines; i++) {
-		*(array+i) = parse_funcs[element_type](*(array+i), lines[i]);
-	}
-	quicksort(array, num_lines, element_sizes[element_type], cmp_funcs[element_type]);
-	for (int i = 0; i < num_lines; i++) {
-		print_funcs[element_type](*(array+i));
-		free_funcs[element_type](*(array+i));
-	}
-	free(array);
-	for (int i = 0; i < num_lines; i++) {
-		free(lines[i]);
-	}
-	free(lines);
-    return EXIT_SUCCESS;
-}
