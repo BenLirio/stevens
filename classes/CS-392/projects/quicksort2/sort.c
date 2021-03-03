@@ -6,6 +6,7 @@
  *               strings.
  * Pledge      :
  ******************************************************************************/
+
 #include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
@@ -39,10 +40,20 @@ typedef enum {
  * Ensures there are no memory leaks with valgrind. 
  */
 
+void usage() {
+	printf("Usage ./sort [-i|-d] filename \
+	\n\t-i: Specifies the file contains ints.\
+	\n\t-d: Specifies the file contains doubles.\
+	\n\tfilename: The file to sort.\
+	\n\tNo flags defaults to sorting strings.");
+}
+
 elem_t get_element_type(int argc, char **argv) {
 	elem_t element_type = STRING;
 	int opt;
+	int i = 0;
 	while ((opt = getopt(argc, argv, ":d :i")) != -1) {
+		i++;
 		switch(opt) {
 		case 'i':
 			element_type = INT;
@@ -50,10 +61,19 @@ elem_t get_element_type(int argc, char **argv) {
 		case 'd':
 			element_type = DOUBLE;
 			break;
+		case '?':
 		default:
-			printf("TODO handle error, wrong flag\n");
+			// Error: Case 2
+			fprintf(stderr, "Error: Unknown option '-%c' received.\n", optopt);
+			usage();
+			exit(EXIT_FAILURE);
 			break;
 		}
+	}
+	if (i > 1) {
+		// Error: Case 6
+		fprintf(stderr, "Error: Too many flags specified.\n");
+		exit(EXIT_FAILURE);
 	}
 	return element_type;
 }
@@ -67,13 +87,13 @@ size_t read_data(char *filename, char **data) {
     // Open the file.
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
+		// Error: Case 3
         fprintf(stderr, "Error: Cannot open '%s'. %s.\n", filename,
                 strerror(errno));
         free(data);
         exit(EXIT_FAILURE);
     }
-
-    // Read in the data.
+// Read in the data.
     size_t index = 0;
     char str[MAX_STRLEN + 2];
     char *eoln;
@@ -97,61 +117,104 @@ size_t read_data(char *filename, char **data) {
     return index;
 }
 
-int main(int argc, char **argv) {
-	elem_t element_type = get_element_type(argc, argv);
-	char file_name[128];
-	if (element_type != STRING) {
-		if (argc == 3) {
-			strcpy(file_name, argv[2]);
-		}
-	} else {
-		if (argc == 2) {
-			strcpy(file_name, argv[1]);
-		}
+void test_argc() {
+
+}
+
+int get_file_name_index(int argc, elem_t element_type) {
+	int base_argc = 1;
+	int num_flags = element_type == STRING ? 0 : 1;
+	int files_passed = argc - num_flags - base_argc;
+
+	if (files_passed < 1) {
+		// Error: Case 4
+		fprintf(stderr, "Error: No input file specified.");
+		exit(EXIT_FAILURE);
 	}
+	if (files_passed > 1) {
+		// Error: Case 5
+		fprintf(stderr, "Error: Too many files specified.");
+		exit(EXIT_FAILURE);
+	}
+
+	int file_name_index = base_argc + num_flags;
+	return file_name_index;
+}
+
+void *parse_str(void* dst, char* line) {
+	char** dst_cast = (char**) dst;
+	dst_cast = (char**) malloc(sizeof(char*));
+	*dst_cast = strdup(line);
+	return dst_cast;
+}
+void *parse_int(void* dst, char* line) {
+	int* dst_cast = (int*) dst;
+	dst_cast = (int*) malloc(sizeof(int));
+	*dst_cast = atoi(line);
+	return dst_cast;
+}
+void *parse_dbl(void* dst, char* line) {
+	double* dst_cast = (double*) dst;
+	dst_cast = (double*) malloc(sizeof(double));
+	*dst_cast = atof(line);
+	return dst_cast;
+}
+void *(*parse_funcs[3])(void*, char*) = {parse_str, parse_int, parse_dbl};
+
+void free_str(void* a) {
+	char** a_cast = (char**)a;
+	free(*a_cast);
+	free(a_cast);
+}
+void free_int(void* a) {
+	int* a_cast = (int*)a;
+	free(a_cast);
+}
+void free_dbl(void* a) {
+	double* a_cast = (double*)a;
+	free(a_cast);
+}
+void print_str(void* a) {
+	char** a_cast = (char**)a;
+	printf("%s\n", *a_cast);
+}
+void print_int(void* a) {
+	int* a_cast = (int*)a;
+	printf("%d\n", *a_cast);
+}
+void print_dbl(void* a) {
+	double* a_cast = (double*)a;
+	printf("%f\n", *a_cast);
+}
+int element_sizes[3] = {sizeof(char*), sizeof(int), sizeof(double)};
+int (*cmp_funcs[3])(const void*, const void*) = {str_cmp, int_cmp, dbl_cmp};
+void (*free_funcs[3])(void*) = {free_str, free_int, free_dbl};
+void (*print_funcs[3])(void*) = {print_str, print_int, print_dbl};
+
+int main(int argc, char **argv) {
+	// Error: CASE 1
+	if (argc <= 1) {
+		usage();
+		exit(EXIT_FAILURE);
+	}
+	elem_t element_type = get_element_type(argc, argv);
+	int file_name_index = get_file_name_index(argc, element_type);
+	char file_name[128];
+	strcpy(file_name, argv[file_name_index]);
+
 	char **lines = malloc(sizeof(char*)*MAX_ELEMENTS);
 	int num_lines = read_data(file_name, lines);
-	size_t elem_sz = 2;
-	if (element_type == STRING) {
-		char*** array = (char***) malloc(sizeof(char**) * num_lines);
-		for (int i = 0; i < num_lines; i++) {
-			*(array+i) = (char**) malloc(sizeof(char*));
-			*(*(array+i)) = strdup(lines[i]);
-		}
-		quicksort(array, num_lines, sizeof(char*), str_cmp);
-		for (int i = 0; i < num_lines; i++) {
-			printf("%s\n", *(*(array+i)));
-			free(*(*(array+i)));
-			free(*(array+i));
-		}
-		free(array);
+
+	void** array = (void**)malloc(sizeof(void*) * num_lines);
+	for (int i = 0; i < num_lines; i++) {
+		*(array+i) = parse_funcs[element_type](*(array+i), lines[i]);
 	}
-	if (element_type == INT) {
-		int** array = (int**) malloc(sizeof(int*) * num_lines);
-		for (int i = 0; i < num_lines; i++) {
-			*(array+i) = (int*) malloc(sizeof(int));
-			**(array+i) = atoi(lines[i]);
-		}
-		quicksort(array, num_lines, sizeof(int), int_cmp);
-		for (int i = 0; i < num_lines; i++) {
-			printf("%d\n", **(array+i));
-			free(*(array+i));
-		}
-		free(array);
+	quicksort(array, num_lines, element_sizes[element_type], cmp_funcs[element_type]);
+	for (int i = 0; i < num_lines; i++) {
+		print_funcs[element_type](*(array+i));
+		free_funcs[element_type](*(array+i));
 	}
-	if (element_type == DOUBLE) {
-		double** array = (double**) malloc(sizeof(double*) * num_lines);
-		for (int i = 0; i < num_lines; i++) {
-			*(array+i) = (double*) malloc(sizeof(double));
-			**(array+i) = atof(lines[i]);
-		}
-		quicksort(array, num_lines, sizeof(double), dbl_cmp);
-		for (int i = 0; i < num_lines; i++) {
-			printf("%f\n", **(array+i));
-			free(*(array+i));
-		}
-		free(array);
-	}
+	free(array);
 	for (int i = 0; i < num_lines; i++) {
 		free(lines[i]);
 	}
