@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+
+\definecolor{myGray}{rgb}{.9,.9,.9}
+\begin{document}
+\setcounter{section}{4}
+\section{Homework}
+\subsection{Excercise}
+\begin{center}
+\rowcolors{1}{white}{myGray}
+\begin{tabular}{|ll|}
+\hline
+	$x$ & $(2^{x})\%29$  \\
+\hline
+	0 & 1 \\
+	1 & 2 \\
+	2 & 4 \\
+	3 & 8 \\
+	4 & 16 \\
+	5 & 3 \\
+	6 & 6 \\
+	7 & 12 \\
+	8 & 24 \\
+	9 & 19 \\
+	10 & 9 \\
+	11 & 18 \\
+	12 & 7 \\
+	13 & 14 \\
+	14 & 28 \\
+	15 & 27 \\
+	16 & 25 \\
+	17 & 21 \\
+	18 & 13 \\
+	19 & 26 \\
+	20 & 23 \\
+	21 & 17 \\
+	22 & 5 \\
+	23 & 10 \\
+	24 & 20 \\
+	25 & 11 \\
+	26 & 22 \\
+	27 & 15 \\
+\hline
+\end{tabular}
+\end{center}
+$log_{2}(21) = 17$
+\subsection{Excercise}
+In CDH the following equations are true
+\newline
+$g^a \equiv A\ (\textrm{mod}\ n)$
+\newline
+$g^b \equiv B\ (\textrm{mod}\ n)$
+\newline
+$A^b \equiv B^a \equiv g^{ab}\ (\textrm{mod}\ n)$
+\newline
+Therefore when $n = 29$, $A = 18$, $B = 14$, the following must be true. $K \equiv 18^b \equiv 14^a \equiv 2^{log_2(18)log_2(14)}\ (\textrm{mod}\ n)$. According to the previous table $log_2(18) = 11$ and $log_2(14) = 13\ \textrm{mod}\ 29$. Consequently $2^{(11)(13)} \equiv 2^{143}\ \textrm{mod}\ 29$. Using Fermat's little theorem, I notice $2^{28} \equiv 1\ \textrm{mod}\ 29$. Which simplifies the equation to $2^{3} \equiv 8\ \textrm{mod}\ 29$. Leading to $K =$ \textbf{8}.
+\subsection{Excercise}
+Given $n = 29$, $g = 2$, $A = 17$, $c_1 = 6$, $c_2 = 10$, one way for Eve to compute the message is for her find the ephemeral key, I'll call $k$. This key was used to generate both $c_1$, and $c_2$ as follows, $c_1 \equiv g^{k}\ \textrm{mod}\ 29$ and $c_2 \equiv mA^{k}\ \textrm{mod}\ 29$. Therefore $k = log_2(c_1) \equiv log_2(6)\equiv 6\ \textrm{mod}\ 29$. Using $k = 6$. Next I would like to find $(A^{k})^{-1}$ in order to calculate $(A^{k})^{-1}c_2 \equiv mA^k(A^{k})^{-1} \equiv m\ \textrm{mod}\ 29$
+\end{document}
