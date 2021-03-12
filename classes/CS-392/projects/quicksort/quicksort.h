@@ -9,3 +9,12 @@
  * TODO - put all non-static function prototypes from quicksort.c inside
  * wrapper #ifndef.
  */
+
+#ifndef _QUICK_SORT_H
+#define _QUICK_SORT_H
+void quicksort(void *array, size_t len, size_t elem_sz,
+               int (*comp) (const void*, const void*));
+
+int str_cmp(const void *a, const void *b);
+    
+#endif

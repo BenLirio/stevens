@@ -27,6 +27,7 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  */
 int int_cmp(const void *a, const void *b) {
     // TODO
+	return 0;
 }
 
 /**
@@ -40,6 +41,7 @@ int int_cmp(const void *a, const void *b) {
  */
 int dbl_cmp(const void *a, const void *b) {
     // TODO
+	return 0;
 }
 
 /**
@@ -49,7 +51,8 @@ int dbl_cmp(const void *a, const void *b) {
  * Returns the result of calling strcmp on them.
  */
 int str_cmp(const void *a, const void *b) { 
-    // TODO
+	// TODO
+	return 0;
 }
 
 /**
@@ -62,7 +65,7 @@ int str_cmp(const void *a, const void *b) {
  * swaps 4 bytes in a and b character pointers.
  */
 static void swap(void *a, void *b, size_t size) {
-    // TODO
+    
 }
 
 /**
@@ -78,6 +81,7 @@ static void swap(void *a, void *b, size_t size) {
 static int lomuto(void *array, int left, int right, size_t elem_sz,
                   int (*comp) (const void*, const void*)) {
     // TODO
+	return 0;
 }
 
 /**
@@ -97,5 +101,6 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  */
 void quicksort(void *array, size_t len, size_t elem_sz,
                int (*comp) (const void*, const void*)) {
-    // TODO
+    quicksort_helper(array, 0, len-1, elem_sz, comp);
+    //printf("A1: %p\n", ((int*)array)+1);
 }

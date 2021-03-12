@@ -21,7 +21,8 @@ void bubble_sort(int *array, const int length) {
     }
 }
 
-void selection_sort(int *array, const int length) {
+void selection_sort(void *a, const int length) {
+	int *array = (int*) a;
     for (int i = 0, i_bound = length - 1; i < i_bound; ++i) {
         int min_index = i, min = *(array+i);
         for (int j = i + 1; j < length; ++j) {

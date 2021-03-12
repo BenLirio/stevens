@@ -126,4 +126,57 @@ Now to determine if $u_{1}$, $u_{2}$, $u_{3}$, $u_{4}$ is invertable, I will con
 \]
 Using the fundamental theorem of linear algebra, I know $C(A) + N(A) = n$ where $n$ is the number of columns of this matrix. I also know that $C(A) = C(A^{T})$ and becuase $C(A^{T}) \le n$, where $n$ is the number of rows, I can assume $C(A) \le 3$, when $n = 3$. Furthermore, I can show $N(A)$ must be at least $1$ in order for $C(A) + N(A) = 4$. Therefore there is at least one vector in the null space of this matrix. Which leads me to the conclusion that while the previous matrix was independent, adding $u_{4}$ made them dependent. Also $u_{4} = 4u_{3} - u_{2} - u_{1}$.
 
+\section{Problem}
+The number of pivots of a matrix after elimination is equivalent to the rank. So I will put $A$ into the form of $U$ and count the number of pivots. If they equal $2$ then $A$ will have rank 2.
+
+\[
+\begin{bmatrix}
+1 & 2 & 5 & 0 & 5 \\
+0 & 0 & c & 2 & 2 \\
+0 & 0 & 0 & d & 2 \\
+\end{bmatrix}
+\]
+Currently I have 3 pivots $1, c, d$, but I will be able to use the fact that a value of $0$ can never be used as a pivot. So I will set $c = 0$.
+\[
+\begin{bmatrix}
+1 & 2 & 5 & 0 & 5 \\
+0 & 0 & 0 & 2 & 2 \\
+0 & 0 & 0 & d & 2 \\
+\end{bmatrix}
+\]
+Finnaly if I set $d = 2$, I will be able to get rid of the unwanted pivot by subtracting $R2$ from $R3$.
+\[
+U =
+\begin{bmatrix}
+1 & 2 & 5 & 0 & 5 \\
+0 & 0 & 0 & 2 & 2 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\]
+Position $U_{11}$ and $U_{42}$ are the only valid positions for my pivots. So $U$ has two pivots, and as stated above, confirms that $A$ has rank 2.
+\section{Problem}
+A basis is a set of a subspace. One basis for $C(A)$ is:
+\[
+\begin{bmatrix}
+1 \\
+1 \\
+0 \\
+\end{bmatrix}
+\begin{bmatrix}
+3 \\
+4 \\
+1 \\
+\end{bmatrix}
+\]
+I found this basis by scanning the columns from left to right and selecting non-trivial columns that were independent of any previous columns I selected. I will explain the steps for this one, but since it is so verbose I will skip doing so for the rest of the subspaces. 
+
+Col 1 is trivial skip
+
+Col 2 is non-trivial and not a linear combinations of previously choosen columns
+
+Col 3 is 2 times Col 2
+
+Col 4 is
+
 \end{document}
+

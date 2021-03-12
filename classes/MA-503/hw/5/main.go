@@ -50,6 +50,7 @@ func main() {
 	err = Compile(src, dir)
 	if err != nil {
 		fmt.Println(err)
+		cleanup()
 		return
 	}
 	fs := http.FileServer(http.Dir(dir))

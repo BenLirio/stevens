@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=latex 2021.2.22)  8 MAR 2021 17:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=latex 2021.2.22)  9 MAR 2021 09:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -573,28 +573,35 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (static/hello.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (7.94977pt too wide) in paragraph at lines 60--61
+[]\OT1/cmr/m/n/12 Similar to the pre-vi-ous prob-lem but now there are 2 "sec-o
+nds". $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = 
+2) = [](\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 1)[](\OML/cmm/m/it/12 :\OT1/cmr/m/n/1
+2 9)[] =$
+ []
+
+[2] [3] (static/hello.aux) ) 
 Here is how much of TeX's memory you used:
  22946 strings out of 479384
  597705 string characters out of 5875856
- 1019862 words of memory out of 5000000
+ 1020862 words of memory out of 5000000
  39719 multiletter control sequences out of 15000+600000
  408810 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,9n,111p,701b,2010s stack positions out of 5000i,500n,10000p,200000b,80000s
-</
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
-.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/shar
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb>
-Output written on static/hello.pdf (2 pages, 88677 bytes).
+ 108i,9n,111p,974b,2010s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on static/hello.pdf (3 pages, 98510 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 53 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

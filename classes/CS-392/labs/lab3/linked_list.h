@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Name        : linked_list.h
+ * Author      : Ben Lirio
+ * Date        : 2/26/21
+ * Description : Implements insert_in_order
+ * Pledge      : I pledge my honor that I have abided by the Stevens Honor System.
+ ******************************************************************************/
 #ifndef LINKEDLIST_H_
 #define LINKEDLIST_H_
 
