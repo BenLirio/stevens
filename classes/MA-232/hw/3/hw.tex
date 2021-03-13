@@ -1,6 +1,17 @@
 \documentclass{article}
 \usepackage{amsmath}
 \begin{document}
+\begin{titlepage}
+	\vspace*{\stretch{1.0}}
+		\begin{center}
+		\Large\textbf{Ben Lirio}\\
+		\vspace*{\stretch{.1}}
+		\large{3/12/21} \\
+		\vspace*{\stretch{.1}}
+		\large\textit{I pledge my honor that I have abided by the Steven Honor System.}
+		\end{center}
+	\vspace*{\stretch{2.0}}
+\end{titlepage}
 \section{Problem}
 Let $A$ be that matrix. If $A$ has a null space in $\textrm{R}^4$ that spans two dimensions, I know $A$ must 4 columns, two of which are free. An $m = 2, n = 4$ sized matrix will satisfy these conditions.
 
@@ -157,6 +168,7 @@ Position $U_{11}$ and $U_{42}$ are the only valid positions for my pivots. So $U
 \section{Problem}
 A basis is a set of a subspace. One basis for $C(A)$ is:
 \[
+Column Space
 \begin{bmatrix}
 1 \\
 1 \\
@@ -168,15 +180,243 @@ A basis is a set of a subspace. One basis for $C(A)$ is:
 1 \\
 \end{bmatrix}
 \]
-I found this basis by scanning the columns from left to right and selecting non-trivial columns that were independent of any previous columns I selected. I will explain the steps for this one, but since it is so verbose I will skip doing so for the rest of the subspaces. 
+I found this basis by scanning the columns from left to right and selecting non-trivial columns that were independent of any previous columns I selected.
 
-Col 1 is trivial skip
+Col 1 is trivial, Skip
 
-Col 2 is non-trivial and not a linear combinations of previously choosen columns
+Col 2 is non-trivial and not a linear combinations of previously choosen columns, Add
 
-Col 3 is 2 times Col 2
+Col 3 is 2 times Col 2, Skip
 
-Col 4 is
+Col 4 is non-trivial a not a linear combination of Col 2, Add
 
+Col 5 Can be made from 2 of Col 4 and -1 of Col 2, Skip
+
+For the null space, I have already found the free columns as shown above, which are, $Col 1, 3, 5$. I will use each one of these to generate a vetor in the null space. By setting $Ax = 0$.
+\[
+Null Space
+\begin{bmatrix}
+1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+-2 \\
+1 \\
+0 \\
+0 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+0 \\
+-2 \\
+1 \\
+\end{bmatrix}
+\]
+
+For the row space I will transpose the matrix and find the column space in the same manner as I did before.
+\[
+A^{T} = 
+\begin{bmatrix}
+0 & 0 & 0 \\
+1 & 1 & 0 \\
+2 & 2 & 0 \\
+3 & 4 & 1 \\
+4 & 6 & 2 \\
+\end{bmatrix}
+\]
+
+Col 1 is non trivial. Add
+
+Col 2 is non trial and is not a linear combination of Col 1. Add
+
+Col 3 is Col 2 - Col 1. Skip
+
+\[
+Row Space
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+4 \\
+6 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+3 \\
+4 \\
+\end{bmatrix}
+\]
+And finnaly for the Left Null space I will set $A^{T}x = 0$. Setting the free column of $A{T}$ to 1.
+\[
+Left Null Space
+\begin{bmatrix}
+1 \\
+-1 \\
+1 \\
+\end{bmatrix}
+\]
+\section{Problem}
+In order to find the two vectors that span the orthogonal complement $S^{\perp}$. I must satisfy the requirements of being a complement vector. Any orthogonal vector must have the property $s_1 \cdot v = 0$, and $s_2 \cdot v = 0$. This relation can be shown in matrix form like so
+\[
+\begin{bmatrix}
+1 & 2 & 2 & 3 \\
+1 & 3 & 3 & 2 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+v_1 \\
+v_2 \\
+v_3 \\
+v_4 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}
+\]
+
+I will now put the matrix in rref because this will not change the null space. First subtract R1 from R2.
+\[
+\begin{bmatrix}
+1 & 2 & 2 & 3 \\
+0 & 1 & 1 & -1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+v_1 \\
+v_2 \\
+v_3 \\
+v_4 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}
+\]
+Finnaly subtract 2 R2 from R1.
+\[
+\begin{bmatrix}
+1 & 0 & 0 & 5 \\
+0 & 1 & 1 & -1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+v_1 \\
+v_2 \\
+v_3 \\
+v_4 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}
+\]
+Although $v$ will not the be same vector, it will still span the same space.
+\[
+\begin{bmatrix}
+1 & 0 & 0 & 5 \\
+0 & 1 & 1 & -1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+5 \\
+-1 \\
+0 \\
+1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}
+\]
+\[
+\begin{bmatrix}
+1 & 0 & 0 & 5 \\
+0 & 1 & 1 & -1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 \\
+-1 \\
+1 \\
+0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}
+\]
+These are my two solutions to $rref(A)x = 0$. Now I can use them to form $S^{\perp}$
+\[
+\begin{bmatrix}
+0 \\
+-1 \\
+1 \\
+0 \\
+\end{bmatrix}
+\begin{bmatrix}
+5 \\
+-1 \\
+0 \\
+1 \\
+\end{bmatrix}
+\]
+\section{Problem}
+From what is given about $P$. The following equation must be true
+\[
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+x_4 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\end{bmatrix}
+\]
+
+Also I know the relation $P^{\perp} = N(P^{T})$. Given both of these facts I can generate:
+\[
+\begin{bmatrix}
+x_1 & x_2 & x_3 & x_4 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 \\
+1 \\
+1 \\
+1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\end{bmatrix}
+\]
+Therefore I can set the bases fro $P^{\perp}$ to be 
+\[
+\begin{bmatrix}
+1 \\
+1 \\
+1 \\
+1 \\
+\end{bmatrix}
+\]
 \end{document}
 
