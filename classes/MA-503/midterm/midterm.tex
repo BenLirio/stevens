@@ -1,0 +1,351 @@
+\documentclass{article}
+
+% for \mathbb
+\usepackage{amsfonts}
+% aligning equations
+\usepackage{amsmath}
+
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+% Problem 1
+\section{}
+By definition $6x^{2} + 5x + 1 \equiv_{p} 0$ infers that
+\[ p|6x^{2} + 5x + 1 \]
+which validates the following for some $k \in \mathbb{Z}$
+\[ pk = 6x^{2} + 5x + 1 \]
+\[ 6x^{2} + 5x + 1 - pk = 0 \]
+Now, assume I can factor the above equation into
+\[ (3x - w)(2x + w) = 0 \]
+For some $w \in \mathbb{Z}$ which satisfies both
+\[ 3w - 2w = 5x \]
+\[ w^{2} = 1 - pk \]
+Then 
+
+That 
+
+Now, if I can find a $x \in \mathbb{Z}$ that satisfies $3w - 2w = 5x$ and $w^{2} = 1 - pk$ and  where $k$
+
+% Problem 2
+\section{}
+\[
+\begin{split}
+% n1
+n_{1} = 2, \quad
+c_{1} = 1, \quad
+m_{1} = 105, \quad
+105d_{1} \equiv_{2} 1,\quad
+d_{1} = 1 \\
+% n2
+n_{2} = 3, \quad
+c_{2} = 2, \quad
+m_{2} = 70, \quad
+70d_{2} \equiv_{3} 1,\quad
+d_{2} = 1 \\
+% n3
+n_{3} = 5, \quad
+c_{3} = 0, \quad
+m_{3} = 42, \quad
+42d_{3} \equiv_{5} 1,\quad
+d_{3} = 3 \\
+% n4
+n_{4} = 7, \quad
+c_{4} = 3, \quad
+m_{4} = 30, \quad
+30d_{4} \equiv_{7} 1,\quad
+d_{4} = 4 \\
+\end{split}
+\]
+Hence
+\[
+\begin{split}
+x \equiv_{210}
+1 \cdot 105 \cdot 1 +
+2 \cdot 70 \cdot 1 + 
+0 \cdot 42 \cdot 3 +
+3 \cdot 30 \cdot 4
+\equiv_{210}
+535
+\equiv_{210}
+115
+\end{split}
+\]
+$x \equiv_{210} \textbf{115}$
+
+% Problem 3
+\section{}
+$U_{15} = \{1, 2, 4, 7, 8, 11, 13, 14\}$
+The order and generated group of each unit is
+\[
+\begin{split}
+|1| = 1, \quad &\langle 1 \rangle = \{1\} \\
+|2| = 4, \quad &\langle 2 \rangle = \{2,4,8,2\} \\
+|4| = 2, \quad &\langle 4 \rangle = \{4, 1\} \\
+|7| = 4, \quad &\langle 7 \rangle = \{7, 4, 13, 1\} \\
+|8| = 4, \quad &\langle 8 \rangle = \{8, 4, 2, 1\} \\
+|11| = 2, \quad &\langle 11 \rangle = \{11, 1\}\\
+|13| = 4, \quad &\langle 13 \rangle = \{13, 4, 7, 1\}\\
+|14| = 2, \quad &\langle 14 \rangle = \{14, 1\} \\
+\end{split}
+\]
+No unit modulo $15$ is able to generate the entire $U_{15}$ group.
+Therefore $U_{15}$ is not cyclic.
+
+% Problem 4
+\section{}
+Since $n = 433$ is prime, $\phi(n) = N = 432 = 2^{4} \cdot 3^{3}$.
+\[
+\begin{split}
+N_{1} = \frac{N}{2^{4}} = 27 &\quad N_{2} = \frac{N}{3^{4}} = 16
+\end{split}
+\]
+Now I will compute $g_{1}, g_{2}, h_{1}, h_{2}$
+\[
+\begin{split}
+g_{1} \equiv_{n} 7^{27} \equiv_{n} 265 \\
+g_{2} \equiv_{n} 7^{16} \equiv_{n} 374 \\
+h_{1} \equiv_{n} 166^{27} \equiv_{n} 250 \\
+h_{2} \equiv_{n} 166^{16} \equiv_{n} 335 \\
+\end{split}
+\]
+Iterating over $k$ until $g_{i}^k \equiv_{n} h_{i}$ is found
+\newline
+For $g_{1}$
+\[
+\begin{split}
+265^{2} \equiv_{n} 153 \\
+265^{3} \equiv_{n} 198 \\
+... \\
+265^{15} \equiv_{n} 250 \\
+\end{split}
+\]
+For $g_{2}$
+\[
+\begin{split}
+374^{2} \equiv_{n} 17 \\
+374^{3} \equiv_{n} 296 \\
+... \\
+374^{20} \equiv_{n} 335 \\
+\end{split}
+\]
+\[
+\begin{split}
+g_{1}^{15} \equiv_{n} 265^{15} \equiv_{n} 250 \equiv_{n} h_{1} &\quad \Rightarrow k_{1} = 15 \\
+g_{2}^{20} \equiv_{n} 374^{20} \equiv_{n} 335 \equiv_{n} h_{2} &\quad \Rightarrow k_{2} = 20
+\end{split}
+\]
+Using this result I will calculate $x$ using the Chinese Remainder theorem.
+\[
+\begin{cases}
+x \equiv_{16} 15 \\
+x \equiv_{27} 20 \\
+\end{cases}
+\]
+\[
+\begin{split}
+x = 15 + 16y \\
+15 + 16y \equiv_{27} 20 \Rightarrow & \\
+&16y \equiv_{27} 5 \\
+&y \equiv_{27} 5 \cdot 22 \\
+&y \equiv_{27} 2 \\
+x = 15 + 32 + 432k \\
+\end{split}
+\]
+One such solution is $x = \textbf{47}$
+
+% Problem 5
+\section{}
+Both $g^{a}$ and $g^{b}$ can be rewritten as 
+\[
+\begin{split}
+(g^{m})^{a^{\prime}} \\
+(g^{m})^{b^{\prime}} \\
+\end{split}
+\]
+Where $m$ is the order of $g$ modulo $n$ and
+$a^{\prime} = \frac{a}{m}$, 
+$b^{\prime} = \frac{b}{m}$.
+\newline
+I know the values $a^{\prime}$ and $b^{\prime}$ exist because of this proof by contradiction.
+\newline
+Assume there is an $x$ such that $g^{x} \equiv_{n} 1$ but $m \not| x$ where $m = |g|$.
+I then split $x$ into components as follows. $x = a_{0}m + a_{1}$ where $1 \le a_{1} < m$. Then
+\[
+\begin{split}
+g^{a_{0}m + a_{1}} \equiv_{n} 1 & \\
+&= g^{a_{0}m} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= (g^{m})^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= 1^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= g^{a_{1}} \equiv_{n} 1\\
+\end{split}
+\]
+With $1 \le a_{1} < m$ this is a contradiction, because if such $a_{1}$ were to exist it would itself be the order.
+\newline
+Now that I know such an $a^{\prime}, b^{\prime} \in \mathbb{Z}$ and further that they share the divisor $m$,
+then let $d = gcd(a, b)$. $m|d$, so let $d^{\prime} = \frac{d}{m}$ 
+
+
+% Problem 6
+\section{}
+By expanding the defintion of $c_{1}$ and $c_{2}$ I get
+\[
+\begin{cases}
+x \equiv_{p} mg_{1}^{s_{1}} \\
+x \equiv_{q} mg_{2}^{s_{2}} \\
+\end{cases}
+\]
+And then expanding $g_{1}$ and $g_{2}$ you get
+\[
+\begin{cases}
+x \equiv_{p} m(g^{r_{1}(p-1)})^{s_{1}} \\
+x \equiv_{q} m(g^{r_{2}(q-1)})^{s_{2}} \\
+\end{cases}
+\]
+Then using proporties of exponentials
+\[
+\begin{cases}
+x \equiv_{p} m(g^{s_{1}r_{1}})^{(p-1)} \\
+x \equiv_{q} m(g^{s_{2}r_{2}})^{(q-1)} \\
+\end{cases}
+\]
+Fermat's little theorem lets us cancel the $g^{...}$ term
+\[
+\begin{cases}
+x \equiv_{p} m \\
+x \equiv_{q} m \\
+\end{cases}
+\]
+Because $p$ and $q$ are pairwise prime the solution to this Chinese Remainder will be $m$
+
+\section{}
+\subsection{}
+\[
+\begin{split}
+1794677960^{(32411 - 1)/2} &\equiv_{32411} -1 \\
+525734818^{(32411 - 1)/2} &\equiv_{32411} 1 \\
+420526487^{(32411 - 1)/2} &\equiv_{32411} -1 \\
+\end{split}
+\]
+Hence Alice's message is $1,0,1$
+\subsection{}
+$N = 3149 = 47 \cdot 67$
+\[
+\begin{split}
+2322^{(47 - 1)/2} &\equiv_{47} -1\\
+719^{(47 - 1)/2} &\equiv_{47} 1\\
+202^{(47 - 1)/2} &\equiv_{47} 1\\
+\end{split}
+\]
+Hence Alice's message is $1,0,0$
+\subsection{}
+\[
+\begin{split}
+(568980706 \cdot 705130839^{2}) \% 781044643 &= \textbf{517254876} \\
+(568980706 \cdot 631364468^{2}) \% 781044643 &= \textbf{4308279} \\
+(631364468^{2}) \% 781044643 &= \textbf{111914931} \\
+\end{split}
+\]
+\section{}
+Using the problem definition I will define $d, a^{\prime}, b^{\prime}$
+\[
+\begin{split}
+d &= gcd(a, b) \\
+a^{\prime} &= \frac{a}{d} \\ 
+b^{\prime} &= \frac{b}{d} \\ 
+\end{split}
+\]
+Consequently
+\[
+\begin{split}
+gcd(a^{\prime}, b^{\prime}) &= 1 \\
+(g^{d})^{a^{\prime}} &\equiv_{n} (g^{d})^{b^{\prime}} \\ 
+\end{split}
+\]
+Using Lagranges Theorem, I know the only valid value for $g^{d} \equiv_{n} 1$
+
+\section{}
+because $n = 433$ is prime $\phi(n) = n-1 = 432 = 2^{4}\cdot 3^{3}$.
+i will choose $n_{1} = 2^{4} = 16$, and $n_{2} = 3^{3} = 27$.
+next i will compute $g_{1}, g{2}, h_{1}, h_{2}$
+\[
+\begin{split}
+g_{1} = 7^{27} \equiv_{n}
+\end{split}
+\]
+
+\section{}
+\subsection{}
+show that $n$ is a carmichael number
+\newline
+$n = 1729 = 7 \cdot 13 \cdot 19$ and hence it is composite. pick any $a$ coprime with $n$. by fermats little theorem
+\[ \label{eq1}
+\begin{split}
+a^{6} \equiv_{7} 1   \\
+a^{12} \equiv_{13} 1 \\
+a^{18} \equiv_{19} 1 \\
+\end{split}
+\]
+$n-1 = 1728 = 2^{6} \cdot 3^{3}$ so it is easy to see
+
+\[
+\begin{split}
+1728/6 = 288 & \rightarrow a^{1278} \equiv_{7} (a^{6})^{288} \equiv_{7} 1 \\
+1728/12 = 144 & \rightarrow a^{1278} \equiv_{13} (a^{12})^{144} \equiv_{13} 1 \\
+1728/18 = 96 & \rightarrow a^{1278} \equiv_{19} (a^{18})^{96} \equiv_{19} 1 \\
+\end{split}
+\]
+hence, $a^{n-1} \equiv_{n} 1$ and $n$ is carmichael
+\subsection{}
+$n-1 = 2^{6} \cdot 27$ so using $3$ as a base
+\[
+\begin{split}
+3^{27} &\equiv_{1728} 664 \\
+3^{2 \cdot 27} &\equiv_{1729} 1 \\
+\end{split}
+\]
+returns \textbf{not prime}
+\newline
+since $3$ shows the compositeness of $1728$ it is a miller-rabin witness.
+\section{}
+using the given equiation
+\[
+\begin{split}
+(763\cdot 773)^{2} \equiv_{n} (2^{6}\cdot 3^{3})^{2}
+\end{split}
+\]
+hence
+\[
+\begin{split}
+a = 763\cdot 773 &= 589799 \\
+b = 2^{6}\cdot 3^{3} &= 1728 \\
+\end{split}
+\]
+so $gcd(52907, a - b) = \textbf{277}$ is a non-trivial factor of $52907$
+\subsection{}
+i only have to check values $\phi(n)/p_{i}$ where $p_{i}$ is the $i^{th}$ prime.
+\[
+\begin{split}
+\phi(113) = 112 = 2^{4} \cdot 7
+\end{split}
+\]
+avoiding redundent values, i will only check $56$ and $16$ for $g = 2$
+\[
+\begin{split}
+2^{16} \equiv_{113} 109
+2^{56} \equiv_{113} 1
+\end{split}
+\]
+hence, the order of $2$ mod $113$ is at least $56$ and therefore not a prime generator.
+\subsection{}
+using lagrange's theorem, the order of 3 must divide $\phi(n)$
+\[
+\begin{split}
+3^{56} \equiv_{113} 112 \\
+3^{16} \equiv_{113} 16 \\
+\end{split}
+\]
+if the order of $3$ was anything but $\phi(n)$ one of congruences would have been congruent to $1$
+\newline
+hence the order of $3$ modulus $113$ is $\phi(113)$ or $112$
+
+\end{document}
