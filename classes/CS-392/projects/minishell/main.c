@@ -33,38 +33,56 @@ rtn_t new_rtn() {
 /*
  * Returns an input of arbitrary size
  */
-char* get_line() {
+rtn_t get_line() {
+	rtn_t rtn = new_rtn();
 	char b[BUF_SIZE];
 	size_t length = 0;
-	char* line = malloc(length+1);
+	char* line;
+	if ((line = malloc(length+1)) == NULL) {
+		rtn.err = OS_ERR;
+		fprintf(stderr, "Error: malloc() failed. %s.\n", strerror(errno));
+		return rtn;
+	}
 	*line = '\0';
 	for (;;) {
 		size_t n = read(STDIN_FILENO, b, BUF_SIZE);
 		if (n == -1) {
 			if (interrupted == true) {
 				printf("\n");
-				break;
 				interrupted = false;
+				rtn.err = OS_ERR;
+				goto CLEANUP;
 			}
 			fprintf(stderr, "Error: read() failed. %s.\n", strerror(errno));
-			break;
+			rtn.err = OS_ERR;
+			goto CLEANUP;
 		}
 		if (n == 0) {
 			break;
 		}
 		size_t prev = length;
 		length += n;
-		line = realloc(line, length+1);
+		if ((line = realloc(line, length+1)) == NULL) {
+			rtn.err = OS_ERR;
+			rtn.ptr = NULL;
+			return rtn;
+		}
 		for (int i = 0; i < n; i++) {
 			if (b[i] == '\n') {
 				*(line+prev+i) = '\0';
-				return line;
+				rtn.ptr = line;
+				return rtn;
 			}
 			*(line+prev+i) = b[i];
 		}
 	}
 	*(line+length) = '\0';
-	return line;
+	rtn.ptr = line;
+	return rtn;
+	CLEANUP:
+	free(line);
+	rtn.ptr = NULL;
+	return rtn;
 }
 
 struct cmd {
@@ -79,14 +97,27 @@ Needs error checking on the memory allocation
 rtn_t parse_line(const char* line, struct cmd* cmd) {
 	rtn_t rtn = new_rtn();
 	cmd->argc = 0;
-	cmd->argv = malloc(cmd->argc*sizeof(char*));
+	if ((cmd->argv = malloc(cmd->argc*sizeof(char*))) == NULL) {
+		fprintf(stderr, "Error: malloc() failed. %s.\n", strerror(errno));
+		return rtn;
+	}
 
+	bool in_quotes = false;
 	bool in_word = false;
 	size_t cur_size = 0;
 	for (; *line; line++) {
-		if (*line == ' ' || *line == '\t') {
+		if (*line == '"') {
+			in_quotes = !in_quotes;
+			continue;
+		}
+		if ((*line == ' ' && !in_quotes) || *line == '\t') {
 			if (in_word == true) {
 				cmd->argv[cmd->argc-1] = realloc(cmd->argv[cmd->argc-1], ++cur_size*sizeof(char));
+				if (cmd->argv[cmd->argc-1] == NULL) {
+					fprintf(stderr,"Error: realloc() failed. %s.\n", strerror(errno));
+					rtn.err = OS_ERR;
+					return rtn;
+				}
 				cmd->argv[cmd->argc-1][cur_size-1] = '\0';
 			}
 			cur_size = 0;
@@ -96,17 +127,47 @@ rtn_t parse_line(const char* line, struct cmd* cmd) {
 		if (in_word == false) {
 			in_word = true;
 			cmd->argv = realloc(cmd->argv, ++cmd->argc*sizeof(char*));
+			if (cmd->argv == NULL) {
+				fprintf(stderr,"Error: realloc() failed. %s.\n", strerror(errno));
+				rtn.err = OS_ERR;
+				return rtn;
+			}
 			cmd->argv[cmd->argc-1] = malloc(cur_size*sizeof(char));
+			if (cmd->argv[cmd->argc-1] == NULL) {
+				fprintf(stderr,"Error: malloc() failed. %s.\n", strerror(errno));
+				rtn.err = OS_ERR;
+				return rtn;
+			}
 		}
 		cmd->argv[cmd->argc-1] = realloc(cmd->argv[cmd->argc-1], ++cur_size*sizeof(char));
+		if (cmd->argv[cmd->argc-1] == NULL) {
+			rtn.err = OS_ERR;
+			fprintf(stderr,"Error: realloc() failed. %s.\n", strerror(errno));
+			return rtn;
+		}
 		cmd->argv[cmd->argc-1][cur_size-1] = *line;
 	}
 	if (in_word == true) {
 		cmd->argv[cmd->argc-1] = realloc(cmd->argv[cmd->argc-1], ++cur_size*sizeof(char));
+		if (cmd->argv[cmd->argc-1] == NULL) {
+			rtn.err = OS_ERR;
+			fprintf(stderr,"Error: realloc() failed. %s.\n", strerror(errno));
+			return rtn;
+		}
 		cmd->argv[cmd->argc-1][cur_size-1] = '\0';
 	}
 	cmd->argv = realloc(cmd->argv, (cmd->argc + 1)*sizeof(char*));
+	if (cmd->argv == NULL) {
+		rtn.err = OS_ERR;
+		fprintf(stderr,"Error: realloc() failed. %s.\n", strerror(errno));
+		return rtn;
+	}
 	cmd->argv[cmd->argc] = NULL;
+	if (in_quotes) {
+		fprintf(stderr, "Error: Malformed comman.\n");
+		rtn.err = ERROR;
+		return rtn;
+	}
 	return rtn;
 }
 
@@ -147,14 +208,30 @@ rtn_t get_home_dir() {
 rtn_t cd(struct cmd cmd) {
 	rtn_t rtn = new_rtn();
 	char* to_dir;
-	if (cmd.argc == 1 || (cmd.argc == 2 && strcmp(cmd.argv[1], "~") == 0)) {
+	if (cmd.argc == 1) {
 		rtn = get_home_dir();
 		if (rtn.err != NIL) {
 			return rtn;
 		}
 		to_dir = rtn.ptr;
+
+	} else if (cmd.argc == 2 && cmd.argv[1][0] == '~') {
+		rtn = get_home_dir();
+		if (cmd.argv[1][1] != '\0') {
+			char path[PATH_MAX];
+			memset(path, '\0', PATH_MAX);
+			strcpy(path, (char*)rtn.ptr);
+			strcpy(path+strlen(path), cmd.argv[1]+1);
+			to_dir = path;
+		} else {
+			to_dir = rtn.ptr;
+		}
 	} else if (cmd.argc == 2) {
 		to_dir = cmd.argv[1];
+	} else {
+		fprintf(stderr, "Error: Too many arguments to cd.\n");
+		rtn.err = ERROR;
+		return rtn;
 	}
 	rtn = chdir_rtn(to_dir);
 	return rtn;
@@ -245,9 +322,15 @@ int main(int argc, char* argv[], char* env[]) {
 		fflush(stdout);
 
 		// Read and parse user input
-		if ((line = get_line()) == NULL) {
+		rtn = get_line();
+		if (rtn.err != NIL) {
 			goto CLEANUP;
 		}
+		line = (char*)rtn.ptr;
+		if (line == NULL) {
+			goto CLEANUP;
+		}
+
 		rtn = parse_line(line, &cmd);
 		if (rtn.err != NIL) {
 			goto CLEANUP;
