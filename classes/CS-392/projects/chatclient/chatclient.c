@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
 
 	for (;;) {
 		// Some sketchy code here. Definilty double check
-		printf("username: ");
+		printf("Enter your username: ");
 		fflush(stdout);
 		n = read(STDIN_FILENO, username, MAX_NAME_LEN+1);
 		// Is \n a username
@@ -170,7 +170,7 @@ int main(int argc, char *argv[]) {
 					}
 				}
 				if (i == client_socket) {
-					if (handle_client_socket() == 0) {
+					if (handle_client_socket() != 0) {
 						goto EXIT;
 					}
 				}
