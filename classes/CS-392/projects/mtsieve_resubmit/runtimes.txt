@@ -1,0 +1,11 @@
+Finding all prime numbers between 100 and 20000000.
+4 segments:
+   [100, 5000075]
+   [5000076, 10000050]
+   [10000051, 15000025]
+   [15000026, 20000000]
+Total primes between 100 and 20000000 with two or more '3' digits: 257808
+Finding all prime numbers between 100 and 20000000.
+1 segment:
+   [100, 20000000]
+Total primes between 100 and 20000000 with two or more '3' digits: 257751
