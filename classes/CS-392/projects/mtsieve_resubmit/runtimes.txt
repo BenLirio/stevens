@@ -1,11 +1,26 @@
-Finding all prime numbers between 100 and 20000000.
-4 segments:
-   [100, 5000075]
-   [5000076, 10000050]
-   [10000051, 15000025]
-   [15000026, 20000000]
-Total primes between 100 and 20000000 with two or more '3' digits: 257808
-Finding all prime numbers between 100 and 20000000.
-1 segment:
-   [100, 20000000]
-Total primes between 100 and 20000000 with two or more '3' digits: 257751
+./mtsieve -s100 -e200000000 -t1 : 0m4.809s
+./mtsieve -s100 -e200000000 -t2 : 0m2.664s
+./mtsieve -s100 -e200000000 -t3 : 0m2.052s
+./mtsieve -s100 -e200000000 -t4 : 0m1.840s
+./mtsieve -s100 -e200000000 -t5 : 0m1.697s
+./mtsieve -s100 -e200000000 -t6 : 0m1.614s
+./mtsieve -s100 -e200000000 -t7 : 0m1.536s
+./mtsieve -s100 -e200000000 -t8 : 0m1.508s
+
+I am running an ancient Mac laptop.
+Here is a subset of the 'lscpu' command:
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+CPU(s):                          4
+On-line CPU(s) list:             0-3
+Thread(s) per core:              1
+Core(s) per socket:              4
+Model name:                      Intel(R) Core(TM) i7-4980HQ CPU @ 2.80GHz
+
+The exponential decay function t(n) = 6.5*e^(-0.8*n) + 1.5 fits the data suprisingly well.
+In this case, increasing the number of threads had diminishing returns.
+
+There are numbers factors at play, but here is one valid explaination to this:
+Theoretically the function t(n) = 1/n should fit this data, but this is not the case.
+Instead of approching 0 as t -> inf, the curve that fits approaches 1.5.
+In otherwords each additional threads adds some constant overhead.

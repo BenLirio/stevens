@@ -110,7 +110,7 @@ void must_parse_args(int argc, char* argv[], int* s, int* e, int* t) {
 	char c;
 	int retval;
 	opterr = 0;
-	while ((c = getopt(argc, argv, ":e:s:t:")) != -1) {
+	while ((c = getopt(argc, argv, "e:s:t:")) != -1) {
 		switch (c) {
 		case 'e':
 			flags |= END;
@@ -124,7 +124,6 @@ void must_parse_args(int argc, char* argv[], int* s, int* e, int* t) {
 			break;
 		case 's':
 			flags |= START;
-			printf("%s\n", optarg);
 			if ((retval = ascii_to_int(optarg, s)) != 0) {
 				parse_error_template(optarg, c, retval);
 			}
@@ -138,6 +137,9 @@ void must_parse_args(int argc, char* argv[], int* s, int* e, int* t) {
 			if ((retval = ascii_to_int(optarg, t)) != 0) {
 				parse_error_template(optarg, c, retval);
 			}
+			if (*t < 1) {
+				fprintf(stderr, "Error: Number of threads cannot be less than 1.\n");
+			}
 			break;
 		case '?':
 			if (optopt == 'e' || optopt == 's' || optopt == 't') {
@@ -150,8 +152,8 @@ void must_parse_args(int argc, char* argv[], int* s, int* e, int* t) {
 			exit(EXIT_FAILURE);
 		}
 	}
-	if (argv[4] != NULL) {
-		fprintf(stderr, "Error: Non-option argument '%s' supplied.\n", argv[4]);
+	if (argv[optind] != NULL) {
+		fprintf(stderr, "Error: Non-option argument '%s' supplied.\n", argv[optind]);
 		exit(EXIT_FAILURE);
 	}
 	if (!(flags&START)) {

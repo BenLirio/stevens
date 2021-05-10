@@ -16,16 +16,6 @@ Date: 4/23/21
 int total_count = 0;
 pthread_mutex_t lock;
 
-bool is_prime(int p) {
-	int sr = sqrt(p);
-	for (int i = 2; i <= sr; i++) {
-		if (p%i == 0) {
-			return false;
-		}
-	}
-	return true;
-}
-
 void* sieve_thread(void* _args) {
 	thread_args args = *(thread_args*)_args;
 	int a = args.low;
@@ -34,6 +24,7 @@ void* sieve_thread(void* _args) {
 	int num_low_primes = max(sqrt_b, 2) + 1;
 	bool* low_primes = (bool*)must_malloc(num_low_primes*sizeof(bool));
 	memset(low_primes, true, num_low_primes);
+	// Low primes
 	for (int i = 2; i < num_low_primes; i++) {
 		if (low_primes[i] == true) {
 			for (int j = i*2; j < num_low_primes; j += i) {
@@ -45,6 +36,8 @@ void* sieve_thread(void* _args) {
 	int high_primes_offset = a;
 	bool* high_primes = (bool*)must_malloc(num_high_primes*sizeof(bool));
 	memset(high_primes, true, num_high_primes);
+
+	// High Primes
 	for (int p = 2; p < num_low_primes; p++) {
 		if (low_primes[p] == false) {
 			continue;
@@ -59,9 +52,6 @@ void* sieve_thread(void* _args) {
 	for (int i = a; i <= b; i++) {
 		if (high_primes[i-high_primes_offset] == false) {
 			continue;
-		}
-		if (is_prime(i) == false) {
-			printf("%d not be prime\n", i);
 		}
 		int num_threes = 0;
 		for (int j = i; j > 0; j /= 10) {
