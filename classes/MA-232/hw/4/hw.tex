@@ -1,0 +1,391 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{bm}
+\begin{document}
+\begin{titlepage}
+	\vspace*{\stretch{1.0}}
+		\begin{center}
+		\Large\textbf{Ben Lirio}\\
+		\vspace*{\stretch{.1}}
+		\large{3/12/21} \\
+		\vspace*{\stretch{.1}}
+		\large\textit{I pledge my honor that I have abided by the Steven Honor System.}
+		\end{center}
+	\vspace*{\stretch{2.0}}
+\end{titlepage}
+\section{Problem}
+Find the line $y = C + Dx$ that best fits the data 
+$(x, y) = \{(-2, 4), (-1, 2), (0, -1), (1, 0), (2, 0)\}$
+
+In matrix form, this can be viewed as
+\[
+\begin{bmatrix}
+1 & -2 \\
+1 & -1 \\
+1 & 0 \\
+1 & 1 \\
+1 & 2 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+C \\
+D \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 \\
+2 \\
+-1 \\
+0 \\
+0 
+\end{bmatrix}
+\]
+Using the formula $A^{T}A\hat{x} = A^{t}b$
+\[
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 \\
+-2 & -1 & 0 & 1 & 2 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 & -2 \\
+1 & -1 \\
+1 & 0 \\
+1 & 1 \\
+1 & 2 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+C \\
+D \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 \\
+-2 & -1 & 0 & 1 & 2 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+4 \\
+2 \\
+-1 \\
+0 \\
+0 
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+5 & 0 \\
+0 & 10 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+C \\
+D \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+-10 \\
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+\frac{1}{5} & 0 \\
+0 & \frac{1}{10} \\
+\end{bmatrix}
+\begin{bmatrix}
+5 & 0 \\
+0 & 10 \\
+\end{bmatrix}
+\begin{bmatrix}
+C \\
+D \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{5} & 0 \\
+0 & \frac{1}{10} \\
+\end{bmatrix}
+\begin{bmatrix}
+5 \\
+-10 \\
+\end{bmatrix}
+\]
+
+\[
+\begin{bmatrix}
+C \\
+D \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \\
+-1 \\
+\end{bmatrix}
+\]
+
+Which can be interpreted as $y = 1 + (-1)x$
+
+
+\section{Problem}
+Use the Gram-Schmidt method to find orthonormal vectors
+\newline
+$A = a$
+\newline
+First I will find the component of $b$ that is orthogonal to $A$ by solving $e = b - p$ where $p$ is the projection vector. In order to do so, I will have to compute $P = A(A^{T}\cdot A)^{-1}A^{T}$, the projection matrix of $A$ and use it to find $p = Pb$.
+
+\[
+P
+=
+\begin{bmatrix}
+1 \\
+-1 \\
+0 \\
+0 \\
+\end{bmatrix}
+\Bigg(
+\begin{bmatrix}
+1 & -1 & 0 & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+-1 \\
+0 \\
+0 \\
+\end{bmatrix}
+\Bigg)^{-1}
+\begin{bmatrix}
+1 & -1 & 0 & 0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+.5 & -.5 & 0 & 0 \\
+-.5 & .5 & 0 & 0 \\
+0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0  \\
+\end{bmatrix}
+\]
+
+\[
+p
+=
+\begin{bmatrix}
+.5 & -.5 & 0 & 0 \\
+-.5 & .5 & 0 & 0 \\
+0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0  \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 \\
+1 \\
+-1 \\
+0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-.5 \\
+.5 \\
+0 \\
+0 \\
+\end{bmatrix}
+\]
+
+\[
+e
+=
+\begin{bmatrix}
+0 \\
+1 \\
+-1 \\
+0
+\end{bmatrix}
+-
+\begin{bmatrix}
+-.5 \\
+.5 \\
+0 \\
+0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+.5 \\
+.5 \\
+-1 \\
+0 \\
+\end{bmatrix}
+\]
+Now I will set $B = e$
+\newline
+In order to get $C$ I will construct a new matrix $Q$ which contains two orthogonal colums where $q_{1} = A$ and $q_{2} = B$
+Then I can set $C$ to be the part of $c$ that is orthogonal to $Q$.
+\[
+P
+=
+\begin{bmatrix}
+1 & .5 \\
+-1 & .5 \\
+0 & -1 \\
+0 & 0\\
+\end{bmatrix}
+\Bigg(
+\begin{bmatrix}
+1 & -1 & 0 & 0 \\
+.5 & .5 & -1 & 0 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 & .5 \\
+-1 & .5 \\
+0 & -1 \\
+0 & 0\\
+\end{bmatrix}
+\Bigg)^{-1}
+\begin{bmatrix}
+1 & -1 & 0 & 0 \\
+.5 & .5 & -1 & 0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{2}{3} & -\frac{1}{3} & \frac{1}{3} & 0 \\
+-\frac{1}{3} & \frac{2}{3} & -\frac{1}{3} & 0 \\
+-\frac{1}{3} & -\frac{1}{3} & \frac{2}{3} & 0 \\
+0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\]
+
+\[
+p
+=
+P\cdot c
+=
+\begin{bmatrix}
+\frac{2}{3} & -\frac{1}{3} & \frac{1}{3} & 0 \\
+-\frac{1}{3} & \frac{2}{3} & -\frac{1}{3} & 0 \\
+-\frac{1}{3} & -\frac{1}{3} & \frac{2}{3} & 0 \\
+0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+1 \\
+-1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1/3 \\
+-1/3 \\
+2/3 \\
+0 \\
+\end{bmatrix}
+\]
+
+\[
+e
+=
+\begin{bmatrix}
+0 \\
+0 \\
+1 \\
+-1 \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+-1/3 \\
+-1/3 \\
+2/3 \\
+0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1/3 \\
+1/3 \\
+1/3 \\
+-1 \\
+\end{bmatrix}
+\]
+
+Now Let $C = e$
+\newline
+Next I have to normalize the vectors, so set $A \leftarrow \frac{A}{||A||}$ and so on for all vectors.
+$||A|| = \sqrt{1 + 1} = \sqrt{2}$
+\newline
+$||B|| = \sqrt{1/4 + 1/4 + 1} = \sqrt{3/2} = \frac{\sqrt{6}}{2}$
+\newline
+$||C|| = \sqrt{1/9 + 1/9 + 1/9 + 1} = \sqrt{2/3} = \frac{2\cdot \sqrt{3}}{3}$
+\newline
+\[
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} & \frac{2}{2\cdot \sqrt{6}} & \frac{3}{6\sqrt{3}} \\
+\\
+-\frac{1}{\sqrt{2}} & \frac{2}{2\cdot \sqrt{6}} & \frac{3}{6\sqrt{3}} \\
+\\
+0 & \frac{2}{2\cdot \sqrt{6}} & \frac{3}{6\sqrt{3}} \\
+\\
+0 & 0 & -\frac{3}{2\sqrt{3}} \\
+\end{bmatrix}
+\]
+I know it looks a bit messy, but it works.
+
+\section{Problem}
+Supose $Q_{1}, Q_{2}$ are square $n x n$ matrices that are orthonormal. Show that their product $Q_{1}Q_{2}$ is orthonormal square matrix.
+
+Let $Q_{3} = Q_{1}Q_{2}$. Now iff $Q_{3}$ is a non trivial orthonoraml matrix then $Q_{3}^{T}Q_{3} = I$.
+\newline
+\[
+Q_{3}^{T}Q_{3} \\
+= (Q_{1}Q_{2})^{T}(Q_{1}Q_{2}) \\
+= Q_{2}^{T}(Q_{1}^{T}Q_{1})Q_{2} \\
+= Q_{2}^{T}Q_{2} \\
+= I
+\]
+Therefore, $Q_{3}$ must be an orthonormal matrix.
+
+\section{Problem}
+Let $A, B, C, D$ be $2 x 2$ matrices. Does the following equality always hold? (If yes prove why, if not find a counterexample)
+\[
+	det(\begin{bmatrix}A & B\\C & D\end{bmatrix}) = det(A) \cdot det(D) - det(C) \cdot det(B)
+\]
+Counter Example
+\[
+\begin{bmatrix}
+1 & 0 & -1 & -1 \\
+-1 & 1 & -1 & 0 \\
+0 & 1 & 1 & 0 \\
+0 & -1 & 1 & 0 \\
+\end{bmatrix}
+\]
+This example has a determinant of 2 but $det(D) = det(C) = 0$, therefore the equation above will be zero no matter what determinant $A$ and $B$ have.
+
+
+\section{Problem}
+Reduce $A = $
+\[
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 2 & 2 \\
+1 & 2 & 3   
+\end{bmatrix}
+\]
+\[
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 1 & 2   
+\end{bmatrix}
+\]
+\[
+U
+=
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & 1   
+\end{bmatrix}
+\]
+Determinant of A is $1 \cdot 1 \cdot 1 = 1$
+\end{document}
+

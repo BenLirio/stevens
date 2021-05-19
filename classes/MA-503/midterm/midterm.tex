@@ -8,24 +8,57 @@
 \usepackage[margin=1in]{geometry}
 
 \begin{document}
+Ben Lirio
+\textit{I pledge my honor that I have abided by the Stevens Honor System}
 % Problem 1
 \section{}
-By definition $6x^{2} + 5x + 1 \equiv_{p} 0$ infers that
-\[ p|6x^{2} + 5x + 1 \]
-which validates the following for some $k \in \mathbb{Z}$
-\[ pk = 6x^{2} + 5x + 1 \]
-\[ 6x^{2} + 5x + 1 - pk = 0 \]
-Now, assume I can factor the above equation into
-\[ (3x - w)(2x + w) = 0 \]
-For some $w \in \mathbb{Z}$ which satisfies both
-\[ 3w - 2w = 5x \]
-\[ w^{2} = 1 - pk \]
-Then 
+First for $p = 2$
+\[
+\begin{split}
+6 \cdot 1^{2} + 5 \cdot 1 + 1 &\equiv_{2} 0 \\
+= 6 + 5 + 1 &\equiv_{2} 0 \\ 
+= 12 &\equiv_{2} 0 \\ 
+\end{split}
+\]
+And $p = 2$
+\[
+\begin{split}
+6 \cdot 1^{2} + 5 \cdot 1 + 1 &\equiv_{3} 0 \\
+= 6 + 5 + 1 &\equiv_{3} 0 \\ 
+= 12 &\equiv_{3} 0 \\ 
+\end{split}
+\]
+Now for $p \ne 3$ and $p \ne 2$
+\[
+\begin{split}
+6x^{2} + 5x + 1 &\equiv_{p} 0 \\
+x^{2} + \frac{5x}{6} + \frac{1}{6} &\equiv_{p} 0 \\
+(x + \frac{5}{12})^{2} + \frac{1}{6} - \frac{25}{144} &\equiv_{p} 0 \\
+(x + \frac{5}{12})^{2} &\equiv_{p} \frac{25}{144} - \frac{1}{6} \\
+(x + \frac{5}{12})^{2} &\equiv_{p} \frac{1}{144} \\
+x + \frac{5}{12} &\equiv_{p} \frac{1}{12} \\
+x + \frac{5}{12} - \frac{1}{12}&\equiv_{p} 0 \\
+x + \frac{4}{12} &\equiv_{p} 0 \\
+x + \frac{1}{3} &\equiv_{p} 0 \\
+\end{split}
+\]
+The following assumptions were used $\textrm{gcd}(3, p) = 1$ and $\textrm{gcd}(2, p) = 1$.
+Which is true because $p$ is a prime and it is not $3$ or $2$.
+\newline
+For example $p = 23$, then $\frac{1}{3} = 8$. So $x \equiv_{23} -8 \equiv_{23} 15$.
+I can then plug $x$ into the equation above
+\[
+\begin{split}
+6 \cdot 15^{2} + 5 \cdot 15 + 1 &\equiv_{23} 0 \\
+6 \cdot 225 + 5 \cdot 15 + 1 &\equiv_{23} 0 \\
+11 \cdot 225 + 1 &\equiv_{23} 0 \\
+11 \cdot 225 + 1 &\equiv_{23} 0 \\
+2806 &\equiv_{23} 0 \\
+\end{split}
+\]
+Is valid because $23|2806$
 
-That 
-
-Now, if I can find a $x \in \mathbb{Z}$ that satisfies $3w - 2w = 5x$ and $w^{2} = 1 - pk$ and  where $k$
-
+\newpage
 % Problem 2
 \section{}
 \[
@@ -72,13 +105,13 @@ x \equiv_{210}
 \]
 $x \equiv_{210} \textbf{115}$
 
+\newpage
 % Problem 3
 \section{}
 $U_{15} = \{1, 2, 4, 7, 8, 11, 13, 14\}$
 The order and generated group of each unit is
 \[
 \begin{split}
-|1| = 1, \quad &\langle 1 \rangle = \{1\} \\
 |2| = 4, \quad &\langle 2 \rangle = \{2,4,8,2\} \\
 |4| = 2, \quad &\langle 4 \rangle = \{4, 1\} \\
 |7| = 4, \quad &\langle 7 \rangle = \{7, 4, 13, 1\} \\
@@ -91,7 +124,52 @@ The order and generated group of each unit is
 No unit modulo $15$ is able to generate the entire $U_{15}$ group.
 Therefore $U_{15}$ is not cyclic.
 
+
+\newpage
 % Problem 4
+\section{}
+Both $g^{a}$ and $g^{b}$ can be rewritten as 
+\[
+\begin{split}
+(g^{m})^{a^{\prime}} \\
+(g^{m})^{b^{\prime}} \\
+\end{split}
+\]
+Where $m$ is the order of $g$ modulo $n$ and
+$a^{\prime} = \frac{a}{m}$, 
+$b^{\prime} = \frac{b}{m}$.
+\newline
+I know the values $a^{\prime}$ and $b^{\prime}$ exist because of this proof by contradiction.
+\newline
+Assume there is an $x$ such that $g^{x} \equiv_{n} 1$ but $m \not| x$ where $m = |g|$.
+I then split $x$ into components as follows. $x = a_{0}m + a_{1}$ where $1 \le a_{1} < m$. Then
+\[
+\begin{split}
+g^{a_{0}m + a_{1}} \equiv_{n} 1 & \\
+&= g^{a_{0}m} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= (g^{m})^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= 1^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
+&= g^{a_{1}} \equiv_{n} 1\\
+\end{split}
+\]
+With $1 \le a_{1} < m$ this is a contradiction, because if such $a_{1}$ were to exist it would itself be the order.
+\newline
+Now that I know such an $a^{\prime}, b^{\prime} \in \mathbb{Z}$ and further that they share the divisor $m$,
+then let $d = gcd(a, b)$. $m|d$, so let $d^{\prime} = \frac{d}{m}$. The following equation now holds
+\[
+\begin{split}
+g^{gcd(a,b)} \Rightarrow& \\
+&= g^{d} \\
+&= g^{md^{\prime}} \\
+&= (g^{m})^{d^{\prime}} \\
+&= (1)^{d^{\prime}} \\
+&= 1 \\
+\end{split}
+\]
+Done
+
+\newpage
+% Problem 5
 \section{}
 Since $n = 433$ is prime, $\phi(n) = N = 432 = 2^{4} \cdot 3^{3}$.
 \[
@@ -153,40 +231,12 @@ x = 15 + 32 + 432k \\
 \]
 One such solution is $x = \textbf{47}$
 
-% Problem 5
-\section{}
-Both $g^{a}$ and $g^{b}$ can be rewritten as 
-\[
-\begin{split}
-(g^{m})^{a^{\prime}} \\
-(g^{m})^{b^{\prime}} \\
-\end{split}
-\]
-Where $m$ is the order of $g$ modulo $n$ and
-$a^{\prime} = \frac{a}{m}$, 
-$b^{\prime} = \frac{b}{m}$.
-\newline
-I know the values $a^{\prime}$ and $b^{\prime}$ exist because of this proof by contradiction.
-\newline
-Assume there is an $x$ such that $g^{x} \equiv_{n} 1$ but $m \not| x$ where $m = |g|$.
-I then split $x$ into components as follows. $x = a_{0}m + a_{1}$ where $1 \le a_{1} < m$. Then
-\[
-\begin{split}
-g^{a_{0}m + a_{1}} \equiv_{n} 1 & \\
-&= g^{a_{0}m} \cdot g^{a_{1}} \equiv_{n} 1\\
-&= (g^{m})^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
-&= 1^{a_{0}} \cdot g^{a_{1}} \equiv_{n} 1\\
-&= g^{a_{1}} \equiv_{n} 1\\
-\end{split}
-\]
-With $1 \le a_{1} < m$ this is a contradiction, because if such $a_{1}$ were to exist it would itself be the order.
-\newline
-Now that I know such an $a^{\prime}, b^{\prime} \in \mathbb{Z}$ and further that they share the divisor $m$,
-then let $d = gcd(a, b)$. $m|d$, so let $d^{\prime} = \frac{d}{m}$ 
 
 
+\newpage
 % Problem 6
 \section{}
+\subsection{}
 By expanding the defintion of $c_{1}$ and $c_{2}$ I get
 \[
 \begin{cases}
@@ -216,7 +266,29 @@ x \equiv_{q} m \\
 \end{cases}
 \]
 Because $p$ and $q$ are pairwise prime the solution to this Chinese Remainder will be $m$
+\subsection{}
+The valnurability is in the distrabution of $g_{1}$ and $g_{2}$. Instead of being uniform from $1:n$, $g_{1}$ can only take at most $(q-1)$ values, and vise versa.
+By looking at $g_{1}$ and $g_{2}$ like this
+\[
+\begin{split}
+g_{1} \equiv_{n} (g^{(p-1)})^{r_{1}} \\
+g_{2} \equiv_{n} (g^{(q-1)})^{r_{2}} \\
+\end{split}
+\]
+we can immediatly see a vulnarabilty, the order $\big|g^{(p-1)}\big| = (q-1)$ and vise versa.
+Furthermore, according to Lagrange's theorem, the order $\big|(g^{(p-1)})^{r_{1}}\big|\Big| (q-1)$.
+By iterating over $i$ until $g_{1}^{i} \equiv_{n} 1$ we are able to get the order of $g_{1}$ which is a nontrivial
+factor of $(q - 1)$. Doing the same with $g_{2}$ we can get a nontrivial factor of $(p - 1)$.
 
+While this method works, the worst case running time is $2\cdot \sqrt{n}$. And if I am assuming I have that time, I could brute force by iterate from $1:\sqrt{n}$ attempting to divide $n$ by each. Yet, probablisticaly, $|g_{1}|$ may be far smaller than $\sqrt{n}$.
+
+I wrote a program to break the code with $p = 101, q = 83$. With these small values, $|g_{1}| = 41$ and $|g_{2}| = 50$. Once I had these values, I was able to divide $n$ by $51, 101, ...$.
+
+I am leaving it here, but I do believe there is a more efficient algorithm which is able to utilize both $g_{1}$ and $g_{2}$ and preform a chinese remainder theorem on congruences. 
+
+
+\newpage
+% Problem 7
 \section{}
 \subsection{}
 \[
@@ -245,58 +317,22 @@ Hence Alice's message is $1,0,0$
 (631364468^{2}) \% 781044643 &= \textbf{111914931} \\
 \end{split}
 \]
-\section{}
-Using the problem definition I will define $d, a^{\prime}, b^{\prime}$
-\[
-\begin{split}
-d &= gcd(a, b) \\
-a^{\prime} &= \frac{a}{d} \\ 
-b^{\prime} &= \frac{b}{d} \\ 
-\end{split}
-\]
-Consequently
-\[
-\begin{split}
-gcd(a^{\prime}, b^{\prime}) &= 1 \\
-(g^{d})^{a^{\prime}} &\equiv_{n} (g^{d})^{b^{\prime}} \\ 
-\end{split}
-\]
-Using Lagranges Theorem, I know the only valid value for $g^{d} \equiv_{n} 1$
 
-\section{}
-because $n = 433$ is prime $\phi(n) = n-1 = 432 = 2^{4}\cdot 3^{3}$.
-i will choose $n_{1} = 2^{4} = 16$, and $n_{2} = 3^{3} = 27$.
-next i will compute $g_{1}, g{2}, h_{1}, h_{2}$
-\[
-\begin{split}
-g_{1} = 7^{27} \equiv_{n}
-\end{split}
-\]
-
+\newpage
 \section{}
 \subsection{}
-show that $n$ is a carmichael number
-\newline
-$n = 1729 = 7 \cdot 13 \cdot 19$ and hence it is composite. pick any $a$ coprime with $n$. by fermats little theorem
-\[ \label{eq1}
-\begin{split}
-a^{6} \equiv_{7} 1   \\
-a^{12} \equiv_{13} 1 \\
-a^{18} \equiv_{19} 1 \\
-\end{split}
-\]
-$n-1 = 1728 = 2^{6} \cdot 3^{3}$ so it is easy to see
-
+$n = 1729 = 7 \cdot 13 \cdot 19$ therefore, $n$ is composite. 
 \[
 \begin{split}
-1728/6 = 288 & \rightarrow a^{1278} \equiv_{7} (a^{6})^{288} \equiv_{7} 1 \\
-1728/12 = 144 & \rightarrow a^{1278} \equiv_{13} (a^{12})^{144} \equiv_{13} 1 \\
-1728/18 = 96 & \rightarrow a^{1278} \equiv_{19} (a^{18})^{96} \equiv_{19} 1 \\
+a^{1728} \equiv_{7} a^{6} &\equiv_{7} 1   \\
+a^{1728} \equiv_{7} a^{12} &\equiv_{13} 1 \\
+a^{1728} \equiv_{7} a^{18} &\equiv_{19} 1 \\
 \end{split}
 \]
-hence, $a^{n-1} \equiv_{n} 1$ and $n$ is carmichael
+Which holds due to Fermat's little theorem, hence $n$ is a carmichael number.
 \subsection{}
-$n-1 = 2^{6} \cdot 27$ so using $3$ as a base
+First I divide $n-1$ by $2$ until it is odd, producing $n-1 = 2^{6} \cdot 27$.
+Next, using $3$ as a base, I will iterate over $3^{2^{i}\cdot 27}$
 \[
 \begin{split}
 3^{27} &\equiv_{1728} 664 \\
@@ -306,6 +342,7 @@ $n-1 = 2^{6} \cdot 27$ so using $3$ as a base
 returns \textbf{not prime}
 \newline
 since $3$ shows the compositeness of $1728$ it is a miller-rabin witness.
+\newpage
 \section{}
 using the given equiation
 \[
@@ -321,8 +358,9 @@ b = 2^{6}\cdot 3^{3} &= 1728 \\
 \end{split}
 \]
 so $gcd(52907, a - b) = \textbf{277}$ is a non-trivial factor of $52907$
-\subsection{}
-i only have to check values $\phi(n)/p_{i}$ where $p_{i}$ is the $i^{th}$ prime.
+\newpage
+\section{}
+I only have to check values $\phi(n)/p_{i}$ where $p_{i}$ is the $i^{th}$ prime.
 \[
 \begin{split}
 \phi(113) = 112 = 2^{4} \cdot 7
@@ -335,17 +373,15 @@ avoiding redundent values, i will only check $56$ and $16$ for $g = 2$
 2^{56} \equiv_{113} 1
 \end{split}
 \]
-hence, the order of $2$ mod $113$ is at least $56$ and therefore not a prime generator.
+hence, the order of $2$ mod $113$ is less than or equal to $56$. Therefore $2$ modulo $113$ is not a prime generator.
 \subsection{}
-using lagrange's theorem, the order of 3 must divide $\phi(n)$
+Using lagrange's theorem, the order of 3 must divide $\phi(n) = 112 = 2^{4} \cdot 7$.
 \[
 \begin{split}
-3^{56} \equiv_{113} 112 \\
-3^{16} \equiv_{113} 16 \\
+3^{112/2} \equiv_{113} 3^{56} \equiv_{113} 112 \\
+2^{112/7} \equiv_{113} 3^{16} \equiv_{113} 16 \\
 \end{split}
 \]
-if the order of $3$ was anything but $\phi(n)$ one of congruences would have been congruent to $1$
-\newline
-hence the order of $3$ modulus $113$ is $\phi(113)$ or $112$
+If $|3|$ modulo $113$ was anythig except $112$, I would have seen a congruence to $1$, as the following two number $56$ and $16$ contain all the factors in $112$. Therefore $|3| = \textbf{112}$ and furthermore is a prime generator.
 
 \end{document}

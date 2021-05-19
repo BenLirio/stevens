@@ -1,0 +1,124 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\title{HW 4}
+\author{Ben Lirio}
+\date{March 18}
+
+\begin{document}
+\maketitle
+\textit{I pledge my honor that I have abided by the Stevens Honor System}
+\section{Problem}
+\begin{itemize}
+\item
+$P(X = 4) = \frac{\binom{7}{4}\binom{12-7}{6-4}}{\binom{12}{6}} = 0.378788$
+$P(X \le 4) = P(X = 0) + P(X = 1) + P(X = 2) + P(X = 3) + P(X = 4)$
+$ = \sum_{n=0}^{4} \frac{\binom{7}{n}\binom{12-7}{6-n}}{\binom{12}{6}}$
+$ = .878788 $
+
+$P(X = 4) = $ \textbf{0.378788}
+
+$P(X \le 4) = $ \textbf{0.878788}
+
+\item The mean can be represented by 
+$E(X) = n(\frac{M}{N}) = (6)(\frac{7}{12}) = 3.5 $.
+And the standard deviation as follows 
+$\sigma = \sqrt{V(X)}$
+$ = \sqrt{n\frac{K}{N} \frac{N-K}{N} \frac{N-n}{N-1}}$
+$ = \sqrt{6 \frac{7}{12} \cdot \frac{12-7}{12} \cdot (1 - \frac{12-6}{12-1})}$
+$ = 0.891883$
+
+Which means $\mu + \sigma = 3.5 + 0.891883 = 4.39188$
+Therefore any $X > 4.39188$ will exceed the mean by more than 1 standard deviation. So
+$P(X > 4.39188) = P(X \ge 5) = P(X = 5) + P(X = 6)$ 
+$ = \frac{\binom{7}{5} \binom{12-7}{6-5}}{\binom{12}{6}} + \frac{\binom{7}{6} \binom{12-7}{6-6}}{\binom{12}{6}}$
+$ = 0.121212 $
+There is a \textbf{12.12\%} chance that X exceeds its mean value by more than 1 standard deviation.
+
+
+\item Analyzing this problem we can see that the sample size of $15$ is less than $5\%$ of the total population, and because this problem can be precisely solved using a hypergeometric distrabution, we can approximate, due to the sample size, to a binomial distrabution.
+
+Let $p$ be the probability of a success, then $p = \frac{M}{N} = \frac{40}{400} = 0.1$. So I can model
+$P(X \le 5) = \sum_{n = 0}^{5} \binom{15}{n}0.1^{n}0.9^{15-n} $
+$ = 99.775 $
+There is approximately \textbf{99.775\%} chance that, given a sample of 15 randomly selected refrigerators, five or less will have a deffective compressor.
+\end{itemize}
+
+\section{Problem}
+p = 0.2
+Geometric - purchase untill you recieve an item
+\begin{itemize}
+	\item $nb(x; 2, .2) = \binom{2+x-1}{x}0.8^{2}0.2^{x}$
+	\item The probability you will purchace 4 boxes means that you will purchase 2 boxes without the prize, hence
+	$P(X = 2) = \binom{2+2-1}{2}0.2^{2}0.8^{2} =$ \textbf{0.0768}
+	\item Likewise, the probability you will purchase at most 4 boxes can be restated to the probability you will purchase at most 2 boxes without the prize, and the probability is:
+	$P(X \le 2) = P(X = 0) + P(X = 1) + P(X = 2)$
+	$ = \binom{2+0-1}{0}0.2^{2}0.8^{0} + \binom{2+1-1}{1}0.2^{2}0.8^{1} + \binom{2+2-1}{2}0.2^{2}0.8^{2} =\ $\textbf{0.1808}
+	\item The mean of a negative binomial distrabution is 
+	$\mu = \frac{pr}{1-p} = \frac{0.8\cdot 2}{1-0.8} = 8$
+	You should expect to get \textbf{8} boxes without the prize and expect to get $\mu + r$ = \textbf{10} boxes total.
+\end{itemize}
+\section{Problem}
+\begin{itemize}
+	\item $P(X = 3) $
+	$ = (1-0.409)^{3}0.409 = $ \textbf{0.143}
+
+	$P(X \le 3) $
+	$ = \sum_{k=0}^{3} (1-0.409)^{n}0.409 $
+	$ = $ \textbf{0.878003}
+
+	\item This can be written as $P(X > \mu + \sigma)$
+	First I will find $\mu = \frac{1-p}{p} = 1.44499$. And now
+	$\sigma = \sqrt{V} = \sqrt{\frac{1-p}{p^2}} = 1.87962$
+
+	So our probability becomes $P(X > 1.44499+1.87962) = P(X > 3.32461)$
+	$ = P(X > 3) = 1 - P(X \le 3)$. Now using the answer from the previous question.
+	$P(X > 3) = 1 - 0.878003 = $ \textbf{0.121997}
+\end{itemize}
+The only caveat here is that I am assuming the range is \{0,1,2,3...\} as opposed to \{1,2,3...\}
+\section{Problem}
+average rate = 1
+Poisson
+\begin{itemize}
+	\item $P(X <= 5)$ Can be solved using Appendix Table A.2. I will choose the column with the value 1.0, and the row with the value 5 to get:
+
+	$\sum_{y=0}^{5} \frac{e^{-1}\cdot 1^{y}}{y!} = $ \textbf{0.999}
+	\item $P(X = 2)$ Can be solved using the formula $\frac{e^{-1}1^{2}}{2!} = 0.18394$
+
+	Using Apendix Table A.2 I can also solve it with:
+	$P(X = 2) = P(X <= 2) - P(X <= 1)$ I can solve this by calculating $(1.0,2) - (1.0,1)$ where given, $(c,r)$ c represents the column value, and r represents the row.
+
+	$P(X = 2) = .920 - .736  = $ \textbf{0.184}
+	\item $P(2 \ge X \le 4)$ Can be calculated by subtracting $(1.0, 1)$ from $(1.0, 4)$.
+
+	$ P(2 \ge X \le 4) = 0.996 - 0.736 = $ \textbf{0.26}
+	\item $\sigma = \sqrt{\mu} = \sqrt{1} = 1$
+
+	$P(X > \mu + \sigma) = P(X > 2) = \sum_{n=3}^{\infty} \frac{e^{-1} \cdot 1^{n}}{n!}$
+	$ = $ \textbf{0.080301}
+
+
+\end{itemize}
+\section{Problem}
+average rate = 1
+Poisson
+In both cases there are only two values possible for the random variable $X$ where $X$ denotes the number of tests.
+In the first case $X$ can either be 1 (no one tested positive) or +3 (in addition to the group test 3 individual tests are preformed). Likewise when $n = 5$ the possible values for $X$ include ${1, 6}$.
+Now all I have to do is calculate the distrabution, or probability of each value occuring.
+For $n = 3$ $P(X = 1) = (1-p)^{3}$. Therefore $P(X = 4) = 1 - P(X = 1)$
+Likewise when $n = 5$ $P(X = 1) = (1-p)^{5}$, and $P(X = 6) = 1 - P(X = 1)$.
+Now the expected value is $1 \cdot P(X = 1) + 4 \cdot P(X = 4)$ for the case when $n = 3$ and
+$1 \cdot P(X = 1) + 6 \cdot P(X = 6)$ for the case when $n = 5$.
+\begin{itemize}
+	\item $n = 3,\ p = .1$
+
+	$E(X) = 1 \cdot (1-.1)^{3} + 4 \cdot (1-(1-.1)^{3})$ = \textbf{1.813}
+	\item $n = 5,\ p = .1$
+
+	$E(X) = 1 \cdot (1-.1)^{5} + 6 \cdot (1-(1-.1)^{5})$ = \textbf{3.04755}
+\end{itemize}
+\end{document}

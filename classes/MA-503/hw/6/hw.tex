@@ -1,0 +1,135 @@
+\documentclass{article}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\title{HW 6}
+\author{Ben Lirio \thanks{I pledge my honor that I have abided by the Stevens Honor System}}
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\section{Exercise}
+$x^{2} + 7x + 1 \equiv_{11} 0$
+\newline
+$ = x^{2} + 7x + 12 \equiv_{11} 0$
+\newline
+$ = (x+4)(x+3) \equiv_{11} 0$
+\newline
+Because $11$ is prime, the congruence is valid for any $x$ such that $11|(x+4)$ or $11|(x+3)$.
+\newline
+$x + 4 \equiv_{11} 0$
+\newline
+$x + 3 \equiv_{11} 0$
+\newline
+which can also be written as
+\newline
+$x \equiv_{11} 7$
+\newline
+$x \equiv_{11} 8$
+\newline
+So it consists of values $x = 11y_{1} + 7$ and $x = 11y_{2} + 8$ for any $y1, y2 \in Z$
+
+\section{}
+I notice that $x^{2} \equiv_{35} 11$ is of the form. $x^{2} \equiv_{pq} 11$ where $p = 5$ and $q = 7$.
+\newline
+$x^{2} \equiv_{5} 1$
+\newline
+$x^{2} \equiv_{7} 4$
+\newline
+Can then be written as
+\newline
+\[
+	\begin{cases}
+	x \equiv_{5} \pm 1 \\
+	x \equiv_{7} \pm 2 \\
+	\end{cases}
+\]
+Using the Chinese remainder theorem:
+\newline
+\(
+x = 1 + 5y \\
+1 + 5y \equiv_{7} 2 \\
+5y \equiv_{7} 1 \\
+y \equiv_{7} 3 \\
+x = 1 + 5\cdot 3 \\
+x = 16
+\)
+I will set $\alpha_{1} \equiv_{35} \pm 16$
+\newline
+\(
+x = 4 + 5y \\
+4 + 5y \equiv_{7} 2 \\
+5y \equiv_{7} 5 \\
+y \equiv_{7} 1 \\
+x = 4 + 5\cdot 1 \\
+x = 9
+\)
+I will set $\alpha_{2} \equiv_{35} \pm 9$
+\newline
+$\{\alpha_{1} = 16, -\alpha_{1} = 19, \alpha_{2} = 9, -\alpha_{2} = 26\}$
+\section{Exercise}
+$(19/23) = -(23/19) = -(4/19) = -1$
+\newline
+$(18/43) = (9/43)(2/43) = 1\cdot -1 = -1$
+\section{Exercise}
+Rewriting the following as $(r/p) = 1$ and $(ab/p) = 1$. I will use the easy properties of Legrandre symbols.
+
+$(ab/p) = (a/p)(b/p) = 1$ Legrange symbols range the values $\{0,1,-1\}$, and there are only
+two combinations $1 \cdot 1 = 1$ and $-1 \cdot -1 = 1$ that satisfy the equation. So
+$a$ and $b$ must either both be residues or neither can be residues.
+
+\section{Exercise}
+\textbf{Remote Coin Toss}
+
+\textbf{Alice}
+
+randomly selects 2 primes $p = 47, q = 79$. Then computes $n = 47\cdot 79 = 3713$
+
+Then sends $n$ to Bob
+
+\textbf{Bob}
+
+recieves $n = 3713$ and chooses a random value $x = 123$, then calculates
+$123^{2} \equiv_{3713} 277$
+
+Bob then sends $x^{2}$ to Alice
+
+\textbf{Alice}
+
+Upon recieving $277$ from Bob, Alice find all four roots of $277$ mod 3713.
+
+$x^{2} \equiv_{3713} 277$ Because Alice has the roots of 3713 she can rewrite the equation as
+
+\[ \begin{cases}
+	x^{2} \equiv_{47} 42 \\
+	x^{2} \equiv_{79} 40 \\
+	\end{cases}
+\]
+
+Using $x = a^{\frac{p+1}{4}}$ I calculate
+
+$42^{\frac{47+1}{4}} \% 47 = 18$
+$47^{\frac{79+1}{4}} \% 79 = 44$
+
+Then use the Chinese remiander theorem to solve
+
+\[ \begin{cases}
+	x \equiv_{47} \pm 18 \\
+	x \equiv_{79} \pm 44 \\
+	\end{cases}
+\]
+
+$\alpha_{1} = \pm 676$
+
+$\alpha_{2} = \pm 123$
+
+Now, here is where the 'flip' happens,
+Alice has the choice to send $\pm 676$ or $\pm 123$ to Bob.
+
+If Bob is able to factor $n$ he wins. So if Alice chooses to send one of $\pm 676$ to Bob, he will recieve enough information to factor $n$.
+On the other hand, if Alice sends one of $\pm 123$ to Bob, he will recieve redundent information and
+be unable to factor $n$.
+\newline
+So $3037$ and $676$ represent loosing calls for Alice.
+And, $123$ and $3590$ represent winning calls for Alice.
+
+\end{document}

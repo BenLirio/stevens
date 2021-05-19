@@ -57,6 +57,7 @@ int handle_client_socket() {
 			printf("\nServer Initiated shutdown.\n");
 			return -1;
 		}
+		printf("\n");
 		printf("%s\n", inbuf);
 		return 0;
 		
@@ -89,6 +90,10 @@ int main(int argc, char *argv[]) {
 	if (parse_int(argv[2], &port, "Error: Port must be in range [1024, 65535].\n") == false) {
 		return EXIT_FAILURE;
 	}
+	if (port < 1024 || port > 65535) {
+		fprintf(stderr, "Error: Port must be in range [1024, 65535].\n");
+		return EXIT_FAILURE;
+	}
 	server_addr.sin_port = htons(port);
 
 	for (;;) {
@@ -102,6 +107,12 @@ int main(int argc, char *argv[]) {
 		}
 		if (n > MAX_NAME_LEN) {
 			printf("Sorry, limit your username to %d characters.\n", MAX_NAME_LEN);
+			for (;;) {
+				n = read(STDIN_FILENO, inbuf, BUFLEN);
+				if (n != BUFLEN) {
+					break;
+				}
+			}
 			continue;
 		}
 		username[n-1] = '\0';

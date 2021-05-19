@@ -1,0 +1,267 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{comment}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{setspace}
+
+\title{HW 5}
+\author{Ben Lirio}
+\date{March 22}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+\maketitle
+\textit{I pledge my honor that I have abided by the Stevens Honor System}
+\newline
+*I used a calculator for any integrals or derivites that required more than the power rule.
+\section{}
+\subsection{}
+Plot of $p(y)$
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	xlabel = $y$,
+	ylabel = {pd},
+]
+\addplot[
+color=red,
+domain=0:5
+]{x/25};
+\addplot[
+color=red,
+domain=5:10
+]{2/5 - x/25};
+\addplot[
+color=red,
+domain=-2:0
+]{0};
+\addplot[
+color=red,
+domain=10:12
+]{0};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\subsection{}
+Integral $\int_{-\infty}^{\infty} f(y) \,dy$
+\newline
+\newline
+$ = \int_{-\infty}^{0} 0 \, dy +$ 
+$ \int_{0}^{5} \frac{y}{25} \, dy +$
+$ \int_{5}^{10} \frac{2}{5} - \frac{y}{25} \, dy +$
+$ \int_{10}^{\infty} 0 \, dy$ 
+\newline
+\newline
+$ = 0 + \frac{5^{2}}{50}$
+$ +(\frac{2\cdot 10}{5}-\frac{10^{2}}{50})$
+$ - (\frac{2\cdot 5}{5}-\frac{5^{2}}{50})$
+\newline
+\newline
+$ = \frac{25}{50}$
+$ + (\frac{20}{5} - \frac{100}{50})$
+$ - (\frac{10}{5} - \frac{25}{50})$
+\newline
+\newline
+$ = 0.5 + (4-2) - (2-0.5)$
+$ = 0.5 + 2 - 1.5 $
+$ = $ \textbf{1}
+\subsection{}
+The probabity of waiting at most 3 minutes can be calculated using the cumulative distrabution function.
+
+$ \int_{-\infty}^{3} f(y) \,dy$
+$ = \int_{0}^{3} \frac{y}{25} \,dy$
+$ = \frac{9}{50} $
+$ = $ \textbf{18\%}
+
+\subsection{}
+The probability of waiting at most 8 minutes can be calculated using the cumulative distrabution fuction with $Y = 8$.
+
+$ \int_{-\infty}^{8} f(y) \,dy$
+$ = \int_{0}^{5} \frac{y}{25} \,dy + \int_{5}^{8} \frac{2}{5} - \frac{y}{25} \,dy$
+\newline
+\newline
+$ = \frac{25}{50} + \frac{21}{50} = \frac{46}{50}$
+$ = $ \textbf{92\%}
+
+\subsection{}
+
+The probability $3 \le Y \ge 8$ can simply be calculated by subtracting $P(Y \le 4)$ from $P(Y \le 8)$
+Using the calcuations from answers 1.3 and 1.4, I get $.92 - .18 = .78 = $ \textbf{74\%}
+\subsection{}
+The probability $Y \le 2$ or $Y \ge 6$ can be calcuated as follows:
+\[
+	\int_{0}^{2} \frac{y}{25}\,dy + \int_{6}^{10} \frac{2}{5} - \frac{y}{25}\,dy
+\]
+\(
+\dfrac{2^{2}}{50} + (\dfrac{20}{5} - \dfrac{10^{2}}{50}) - (\dfrac{12}{5} - \dfrac{6^{2}}{50}) \\
+\\
+\dfrac{2}{25} + \dfrac{8}{5} - \dfrac{64}{50} \\
+\\
+\dfrac{4+80-64}{50} \\
+\\
+\dfrac{20}{50} \\
+\\
+\textbf{40\%}
+\)
+\section{}
+\subsection{}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	xlabel = $y$,
+	ylabel = {pd},
+]
+\addplot[
+color=red,
+domain=0:1
+]{90*x*x*x*x*x*x*x*x*(1 - x)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	xlabel = $y$,
+	ylabel = {cd},
+]
+\addplot[
+color=red,
+domain=0:1
+]{10*x*x*x*x*x*x*x*x*x - 9*x*x*x*x*x*x*x*x*x*x};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\subsection{}
+\(
+\int_{-\infty}^{.5} f(y)\, dy \\
+= \int_{0}^{.5} 90x^{8} (1 - x)\, dy \\
+= \frac{90\cdot .5^{9}}{9} - \frac{90\cdot .5^{10}}{10} \\
+= 10\cdot .5^{9} - 9\cdot .5^{10} \\
+= .019531 - .00879 \\
+= .010742 \\
+\textbf{1.07\%}
+\)
+\subsection{}
+First, $P(.25 < X \le .5) \equiv P(.25 \le X \le .5)$ so I will only solve the second one.
+\newline
+CDF = $10x^{9} - 9x^{10}$
+\newline
+\(
+(10(.5)^{9} - 9(.5)^{10}) - (10(.25)^{9} - 9(.25)^{10}) \\
+\textbf{1.07\%} \\
+\)
+\subsection{}
+\(
+.75 = 10x^{9} - 9x^{10} \\
+0.903596 \\
+\textbf{90.36\%}
+\)
+\subsection{}
+\(
+E(X) = \int_{-\infty}^{\infty} xf(x)\,dx \\
+= \int_{0}^{1} 90x^{9}(1 - x)\, dx \\ 
+= 9(1)^{10} - \frac{90(1)^{11}}{11} \\
+= 9 - \frac{90}{11} \\
+= \frac{9}{11} \\
+E(X) = \textbf{.8182} \\
+\)
+\newline
+\(
+\sigma_{X}^{2} = V(X) = \int_{-\infty}^{\infty} x^{2}f(x)\,dx - E(X)^{2} \\
+= \int_{0}^{1} 90x^{10}(1 - x)\, dx [E(X)]^{2}\\
+= \frac{90x^{11}}{11} - \frac{90x^{12}}{12} [E(X)]^{2} \\
+= \frac{90}{11} - \frac{90}{12} - [E(X)]^{2} \\
+= \frac{15}{12} - [E(X)]^{2} \\
+= .6818 - .8182^{2}\\
+V(X) = 0.012366 \\
+\sigma_{X} = \textbf{.111207} \\
+\)
+\subsection{}
+\(
+1 - P(.707 \le X \le .929) = 1 - \int_{.707}^{.929} 90x^{8}(1 - x)\, dx \\
+= 1 - ((10(.929)^{9} - 9(.929)^{10}) - (10(.707)^{9} - 9(.707)^{10})) \\
+= 1 - .684219 \\
+= \textbf{.31} \\
+\)
+\section{}
+\subsection{}
+\(
+P(X \le 1) = F(1) \\
+= \frac{1}{4}\cdot \Big[ 1 + ln\big(\frac{4}{1}\big) \Big] \\
+= \textbf{.596574} \\
+\)
+\subsection{}
+\(
+P(1 \le X \le 3) = F(3) - F(1) \\
+= \frac{3}{4}\cdot \Big[1+ln\big(\frac{4}{3}\big) \Big] - F(1) \\
+= 0.9657 - .596574 \\
+= \textbf{.369126} \\
+\)
+\subsection{}
+\(
+f(x) = \frac{d}{dx}[F(x)] \\
+= \frac{ln(4/x)}{4} \\
+\)
+But the function is only defined for $0 < x \le 4$
+\newline
+\(
+p(x) = 
+\begin{cases}
+	\frac{ln(4/x)}{4} & 0 < x \le 4 \\
+	0 & \textrm{otherwise} \\
+\end{cases}
+\)
+\section{}
+\subsection{}
+\(
+k = 1/\big(\int_{0}^{\infty} (1 + x/2.5)^{-7}\big) \\
+= \frac{1}{0.416666} \\
+k = \textbf{2.4} \\
+\)
+\subsection{}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	xlabel = $y$,
+	ylabel = {pd},
+]
+\addplot[
+color=red,
+domain=0:3
+]{2.4*1/((1+x/2.5)*(1+x/2.5)*(1+x/2.5)*(1+x/2.5)*(1+x/2.5)*(1+x/2.5)*(1+x/2.5))};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\subsection{}
+\(
+E(X) = \int_{-\infty}^{\infty} x2.4(1 + \frac{x}{2.5})^{-7} \\
+= \int_{0}^{\infty} x2.4(1 + \frac{x}{2.5})^{-7} \\
+E(X) = \textbf{0.5} \\
+\)
+\(
+V(X) = E(X^{2}) - [E(X)]^{2} \\
+= \int_{-\infty}^{\infty} x^{2}2.4(1 + \frac{x}{2.5})^{-7} - [E(X)]^{2} \\
+= 0.625 - .5^{2} \\
+V(X) = 0.375 \\
+\sigma_{X} = \sqrt{V(X)} \\
+\sigma_{X} = \sqrt{0.375} = \textbf{0.612372} \\
+\)
+\subsection{}
+Using the law of the unconcious statistition, I can use $f(x)$ in my computation of $E(Y)$ by instead integrating over $f(y)$ and adding the correct coeficient.
+\newline
+\(
+E(Y) = \int_{.5}^{10.5} .8yf(y)\, dy + \int_{10.5}^{\infty} yf(y)\, dy \\
+= \int_{.5}^{10.5} .8(y-.5)(2.4(1 + y/2.5)^{-7})\, dy +
+\int_{10.5}^{\infty} (y-10.5)(2.4(1 + y/2.5)^{-7})\, dy \\
+= 0.160241 + 0.000132 \\
+E(Y) = \textbf{0.160373} \\
+\)
+Insurance companies should expect to pay about $160\$$ per client.
+\newline
+\end{document}
